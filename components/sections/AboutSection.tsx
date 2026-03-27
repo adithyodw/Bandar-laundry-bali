@@ -4,11 +4,39 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { HERO_BG } from "@/lib/data";
 
+// Professional inline SVG icons — no emojis
+const IconClock = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+);
+
+const IconStar = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+  </svg>
+);
+
+const IconPhone = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+    <line x1="12" y1="18" x2="12.01" y2="18" />
+  </svg>
+);
+
+const IconLeaf = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z" />
+    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+  </svg>
+);
+
 const pillars = [
-  { icon: "⚡", title: "Express Speed", desc: "Clean, folded, and ready in 90 minutes." },
-  { icon: "✨", title: "Premium Quality", desc: "Hotel-grade cleaning with premium detergents." },
-  { icon: "📱", title: "Digital First", desc: "Order, track, and pay — all via WhatsApp." },
-  { icon: "🌿", title: "Eco-Friendly", desc: "Responsible cleaning, gentle on fabrics and Bali." },
+  { Icon: IconClock, title: "Express Speed", desc: "Clean, folded, and ready in 90 minutes." },
+  { Icon: IconStar,  title: "Premium Quality", desc: "Hotel-grade cleaning with premium detergents." },
+  { Icon: IconPhone, title: "Digital First", desc: "Order, track, and pay — all via WhatsApp." },
+  { Icon: IconLeaf,  title: "Eco-Friendly", desc: "Responsible cleaning, gentle on fabrics and Bali." },
 ];
 
 export default function AboutSection() {
@@ -72,19 +100,21 @@ export default function AboutSection() {
             </motion.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {pillars.map((pillar, i) => (
+              {pillars.map(({ Icon, title, desc }, i) => (
                 <motion.div
-                  key={pillar.title}
+                  key={title}
                   initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.45, delay: i * 0.08 }}
                   className="flex items-start gap-3 p-4 bg-white border border-slate-100 rounded-sm"
                 >
-                  <span className="text-xl flex-shrink-0" aria-hidden="true">{pillar.icon}</span>
+                  <div className="flex-shrink-0 w-9 h-9 rounded-sm bg-[#1B3FA0]/6 flex items-center justify-center text-[#1B3FA0]">
+                    <Icon />
+                  </div>
                   <div>
-                    <div className="font-semibold text-[#0D1B2A] text-sm mb-1">{pillar.title}</div>
-                    <div className="text-xs text-slate-500 leading-relaxed">{pillar.desc}</div>
+                    <div className="font-semibold text-[#0D1B2A] text-sm mb-1">{title}</div>
+                    <div className="text-xs text-slate-500 leading-relaxed">{desc}</div>
                   </div>
                 </motion.div>
               ))}
