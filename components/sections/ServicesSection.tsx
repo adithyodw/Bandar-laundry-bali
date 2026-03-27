@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { services } from "@/lib/data";
 
@@ -35,20 +35,25 @@ const icons: Record<string, React.ReactNode> = {
 };
 
 export default function ServicesSection() {
+  const prefersReduced = useReducedMotion();
+
   return (
-    <section id="services" className="py-20 md:py-28 bg-white">
+    <section id="services" className="py-16 md:py-24 bg-white">
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="max-w-xl mb-14"
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.65 }}
+          className="max-w-xl mb-10 md:mb-14"
         >
           <span className="section-label">Our Services</span>
           <h2
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1B2A] leading-tight"
-            style={{ fontFamily: "var(--font-playfair), serif" }}
+            className="font-bold text-[#0D1B2A] leading-tight"
+            style={{
+              fontFamily: "var(--font-playfair), serif",
+              fontSize: "clamp(1.75rem, 5vw, 3rem)",
+            }}
           >
             Everything Your
             <br />
@@ -56,27 +61,29 @@ export default function ServicesSection() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 1 col → 2 col at sm → 4 col at xl (avoids cramped 4-col on tablets) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
           {services.map((service, i) => (
             <motion.div
               key={service.slug}
-              initial={{ opacity: 0, y: 30 }}
+              initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
             >
               <Link
                 href={`/${service.slug}`}
-                className={`service-card block p-7 border h-full ${
+                className={`service-card block p-5 md:p-7 border h-full ${
                   service.highlight
                     ? "bg-[#1B3FA0] border-[#1B3FA0] text-white"
                     : "bg-white border-slate-100 text-[#0D1B2A]"
                 }`}
               >
                 <div
-                  className={`mb-6 ${
+                  className={`mb-5 ${
                     service.highlight ? "text-[#F5A623]" : "text-[#1B3FA0]"
                   }`}
+                  aria-hidden="true"
                 >
                   {icons[service.slug]}
                 </div>

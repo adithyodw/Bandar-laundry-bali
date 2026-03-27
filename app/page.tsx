@@ -1,12 +1,29 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import HeroSection from "@/components/sections/HeroSection";
 import TrustBar from "@/components/sections/TrustBar";
 import AboutSection from "@/components/sections/AboutSection";
-import ServicesSection from "@/components/sections/ServicesSection";
-import BranchesSection from "@/components/sections/BranchesSection";
-import FranchiseSection from "@/components/sections/FranchiseSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import InstagramSection from "@/components/sections/InstagramSection";
+
+// Below-fold sections loaded lazily to reduce initial JS bundle
+const ServicesSection = dynamic(
+  () => import("@/components/sections/ServicesSection"),
+  { ssr: true }
+);
+const BranchesSection = dynamic(
+  () => import("@/components/sections/BranchesSection"),
+  { ssr: true }
+);
+const FranchiseSection = dynamic(
+  () => import("@/components/sections/FranchiseSection"),
+  { ssr: true }
+);
+const TestimonialsSection = dynamic(
+  () => import("@/components/sections/TestimonialsSection"),
+  { ssr: true }
+);
+const InstagramSection = dynamic(
+  () => import("@/components/sections/InstagramSection")
+);
 
 export const metadata: Metadata = {
   title: "Bandar Laundry Express Bali — Premium Laundry Service | Laundry Bali",

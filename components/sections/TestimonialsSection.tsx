@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { testimonials } from "@/lib/data";
 
 function StarRating({ count }: { count: number }) {
@@ -16,20 +16,25 @@ function StarRating({ count }: { count: number }) {
 }
 
 export default function TestimonialsSection() {
+  const prefersReduced = useReducedMotion();
+
   return (
-    <section id="testimonials" className="py-20 md:py-28 bg-[#FAF8F4]">
+    <section id="testimonials" className="py-16 md:py-24 bg-[#FAF8F4]">
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="max-w-xl mb-14"
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.65 }}
+          className="max-w-xl mb-10 md:mb-14"
         >
           <span className="section-label">Google Reviews</span>
           <h2
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1B2A] leading-tight"
-            style={{ fontFamily: "var(--font-playfair), serif" }}
+            className="font-bold text-[#0D1B2A] leading-tight"
+            style={{
+              fontFamily: "var(--font-playfair), serif",
+              fontSize: "clamp(1.75rem, 5vw, 3rem)",
+            }}
           >
             What Our Customers
             <br />
@@ -37,15 +42,15 @@ export default function TestimonialsSection() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {testimonials.map((t, i) => (
             <motion.article
               key={t.name}
-              initial={{ opacity: 0, y: 30 }}
+              initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="bg-white p-7 border border-slate-100 hover:shadow-md transition-shadow duration-300"
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.45, delay: Math.min(i * 0.07, 0.28) }}
+              className="bg-white p-5 md:p-7 border border-slate-100 hover:shadow-md transition-shadow duration-300 rounded-sm"
             >
               <StarRating count={t.stars} />
               <p className="text-slate-600 text-sm leading-relaxed mt-4 mb-6 italic">

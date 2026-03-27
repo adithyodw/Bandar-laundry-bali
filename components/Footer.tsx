@@ -30,8 +30,11 @@ const serviceLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0D1B2A] text-white">
-      <div className="container py-14 md:py-16">
+    <footer
+      className="bg-[#0D1B2A] text-white"
+      style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+    >
+      <div className="container py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12">
           <div className="lg:col-span-1">
             <Image
@@ -51,7 +54,7 @@ export default function Footer() {
                 href="https://www.instagram.com/bandarlaundryexpress/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#F5A623] hover:border-[#F5A623] transition-colors"
+                className="w-11 h-11 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#F5A623] hover:border-[#F5A623] transition-colors rounded-sm"
                 aria-label="Instagram"
               >
                 <svg
@@ -73,7 +76,7 @@ export default function Footer() {
                 href="https://wa.me/6281290271990"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#25D366] hover:border-[#25D366] transition-colors"
+                className="w-11 h-11 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#25D366] hover:border-[#25D366] transition-colors rounded-sm"
                 aria-label="WhatsApp"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -87,12 +90,12 @@ export default function Footer() {
             <div className="text-xs font-semibold tracking-[0.18em] uppercase text-[#F5A623] mb-5">
               Navigation
             </div>
-            <nav className="flex flex-col gap-3">
+            <nav className="flex flex-col gap-0.5">
               {navLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm text-white/55 hover:text-white transition-colors"
+                  className="text-sm text-white/55 hover:text-white transition-colors py-2 min-h-[44px] flex items-center"
                 >
                   {link.label}
                 </Link>
@@ -104,12 +107,12 @@ export default function Footer() {
             <div className="text-xs font-semibold tracking-[0.18em] uppercase text-[#F5A623] mb-5">
               Locations
             </div>
-            <nav className="flex flex-col gap-3">
+            <nav className="flex flex-col gap-0.5">
               {locationLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm text-white/55 hover:text-white transition-colors"
+                  className="text-sm text-white/55 hover:text-white transition-colors py-1.5 min-h-[36px] flex items-center"
                 >
                   {link.label}
                 </Link>
@@ -121,12 +124,12 @@ export default function Footer() {
             <div className="text-xs font-semibold tracking-[0.18em] uppercase text-[#F5A623] mb-5">
               Services
             </div>
-            <nav className="flex flex-col gap-3">
+            <nav className="flex flex-col gap-0.5">
               {serviceLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm text-white/55 hover:text-white transition-colors"
+                  className="text-sm text-white/55 hover:text-white transition-colors py-1.5 min-h-[36px] flex items-center"
                 >
                   {link.label}
                 </Link>

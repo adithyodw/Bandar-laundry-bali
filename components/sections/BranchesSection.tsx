@@ -1,25 +1,30 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { branches } from "@/lib/data";
 
 export default function BranchesSection() {
+  const prefersReduced = useReducedMotion();
+
   return (
-    <section id="branches" className="py-20 md:py-28 bg-[#FAF8F4]">
+    <section id="branches" className="py-16 md:py-24 bg-[#FAF8F4]">
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="flex flex-col md:flex-row md:items-end md:justify-between mb-14 gap-6"
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.65 }}
+          className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 md:mb-14 gap-4"
         >
           <div>
             <span className="section-label">Our Locations</span>
             <h2
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1B2A] leading-tight"
-              style={{ fontFamily: "var(--font-playfair), serif" }}
+              className="font-bold text-[#0D1B2A] leading-tight"
+              style={{
+                fontFamily: "var(--font-playfair), serif",
+                fontSize: "clamp(1.75rem, 5vw, 3rem)",
+              }}
             >
               Find a Branch
               <br />
@@ -37,15 +42,15 @@ export default function BranchesSection() {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {branches.map((branch, i) => (
             <motion.div
               key={branch.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
-              className="branch-card bg-white p-6 shadow-sm border border-slate-50 hover:border-[#F5A623]/30"
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.45, delay: Math.min(i * 0.06, 0.3) }}
+              className="branch-card bg-white p-5 md:p-6 shadow-sm border border-slate-50 hover:border-[#F5A623]/30"
             >
               <div className="text-xs font-semibold tracking-[0.15em] uppercase text-[#F5A623] mb-2">
                 {branch.area}
@@ -99,7 +104,7 @@ export default function BranchesSection() {
                 href={branch.maps}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-xs font-semibold text-[#1B3FA0] hover:text-[#F5A623] transition-colors tracking-wide uppercase"
+                className="inline-flex items-center gap-2 text-xs font-semibold text-[#1B3FA0] hover:text-[#F5A623] transition-colors tracking-wide uppercase min-h-[44px]"
               >
                 <svg
                   width="12"
@@ -110,6 +115,7 @@ export default function BranchesSection() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  aria-hidden="true"
                 >
                   <polygon points="3 11 22 2 13 21 11 13 3 11" />
                 </svg>

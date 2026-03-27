@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -17,6 +17,17 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  minimumScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#0D1B2A" },
+    { media: "(prefers-color-scheme: dark)", color: "#0D1B2A" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bandar-laundry-manus.vercel.app"),
@@ -94,7 +105,6 @@ const localBusinessSchema = {
   logo:
     "https://d2xsxph8kpxj0f.cloudfront.net/310519663482333703/KB4KAXETgqhUXRp3CHL52M/bandar-logo_110b4814.png",
   priceRange: "$$",
-  servesCuisine: null,
   address: {
     "@type": "PostalAddress",
     streetAddress: "Jl. Kebo Iwa Utara No. 125",
@@ -170,9 +180,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
+      <body className="overflow-x-hidden">
         <Navbar />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
         <WhatsAppFloat />
       </body>

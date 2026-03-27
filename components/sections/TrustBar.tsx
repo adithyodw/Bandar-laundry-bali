@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const stats = [
   { value: "9+", label: "Branches in Bali" },
@@ -10,17 +10,19 @@ const stats = [
 ];
 
 export default function TrustBar() {
+  const prefersReduced = useReducedMotion();
+
   return (
-    <section className="bg-[#1B3FA0] py-8">
+    <section className="bg-[#1B3FA0] py-7 md:py-8" aria-label="Key stats">
       <div className="container">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.45, delay: i * 0.08 }}
               className="text-center"
             >
               <div
