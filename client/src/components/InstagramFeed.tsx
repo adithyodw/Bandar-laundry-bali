@@ -1,35 +1,45 @@
-/*
- * BANDAR LAUNDRY EXPRESS — Instagram Feed Section
- * Design: Clean grid displaying live Instagram posts from @bandarlaundryexpress
- * Uses Instagram's embed API for real-time content.
- */
+import { useEffect, useMemo, useState } from "react";
 
-import { useEffect } from "react";
+type InstagramPost = {
+  id: string;
+  permalink: string;
+  thumbnailUrl: string;
+  caption: string;
+};
 
 export default function InstagramFeed() {
-  useEffect(() => {
-    // Load Instagram embed script
-    const script = document.createElement("script");
-    script.src = "//www.instagram.com/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
+  const [posts, setPosts] = useState<InstagramPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    // If script already loaded, process embeds
-    if ((window as any).instgrm) {
-      (window as any).instgrm.Embeds.process();
+  useEffect(() => {
+    let mounted = true;
+    const controller = new AbortController();
+
+    async function loadPosts() {
+      try {
+        const response = await fetch("/api/instagram", { signal: controller.signal });
+        if (!response.ok) throw new Error("Instagram API request failed");
+        const data = (await response.json()) as { posts?: InstagramPost[] };
+        if (mounted) setPosts(Array.isArray(data.posts) ? data.posts : []);
+      } catch {
+        if (mounted) setPosts([]);
+      } finally {
+        if (mounted) setIsLoading(false);
+      }
     }
 
+    loadPosts();
     return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
+      mounted = false;
+      controller.abort();
     };
   }, []);
+
+  const visiblePosts = useMemo(() => posts.slice(0, 6), [posts]);
 
   return (
     <section id="instagram" className="py-20 md:py-28 bg-white">
       <div className="container">
-        {/* Header */}
         <div className="max-w-xl mb-14 reveal">
           <span className="section-label">Follow Us</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1B2A] leading-tight font-['Playfair_Display']">
@@ -39,27 +49,38 @@ export default function InstagramFeed() {
           </h2>
         </div>
 
-        {/* Instagram Feed Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Instagram embed posts */}
-          <blockquote
-            className="instagram-media reveal"
-            data-instgrm-permalink="https://www.instagram.com/bandarlaundryexpress/"
-            data-instgrm-version="14"
-          />
-          <blockquote
-            className="instagram-media reveal"
-            data-instgrm-permalink="https://www.instagram.com/bandarlaundryexpress/"
-            data-instgrm-version="14"
-          />
-          <blockquote
-            className="instagram-media reveal"
-            data-instgrm-permalink="https://www.instagram.com/bandarlaundryexpress/"
-            data-instgrm-version="14"
-          />
-        </div>
+        {isLoading ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className="aspect-square bg-slate-100 animate-pulse rounded-md" />
+            ))}
+          </div>
+        ) : visiblePosts.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {visiblePosts.map((post) => (
+              <a
+                key={post.id}
+                href={post.permalink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block overflow-hidden rounded-md border border-slate-200 bg-slate-50 reveal"
+                aria-label="Open Instagram post"
+              >
+                <img
+                  src={post.thumbnailUrl}
+                  alt={post.caption || "Instagram post from Bandar Laundry Express"}
+                  loading="lazy"
+                  className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </a>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-md border border-slate-200 p-6 text-slate-600 reveal">
+            Latest Instagram posts are temporarily unavailable.
+          </div>
+        )}
 
-        {/* CTA to Instagram */}
         <div className="mt-12 text-center reveal">
           <a
             href="https://www.instagram.com/bandarlaundryexpress/"
@@ -76,19 +97,6 @@ export default function InstagramFeed() {
           </a>
         </div>
       </div>
-
-      <style>{`
-        .instagram-media {
-          background: #FFF;
-          border: 0;
-          border-radius: 3px;
-          box-shadow: 0 1px 6px rgba(0,0,0,0.1);
-          margin: 1px;
-          max-width: 100%;
-          min-width: 100%;
-          padding: 0;
-        }
-      `}</style>
     </section>
   );
 }
