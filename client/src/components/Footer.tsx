@@ -52,7 +52,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://wa.me/6281290271990"
+                href="https://wa.me/62817334128"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 border border-white/20 flex items-center justify-center text-white/60 hover:text-[#25D366] hover:border-[#25D366] transition-colors"
@@ -93,14 +93,14 @@ export default function Footer() {
                 <svg className="flex-shrink-0 mt-0.5 text-white/30" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.55a16 16 0 0 0 6.29 6.29l1.91-1.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
-                <a href="tel:+628173341280" className="hover:text-white transition-colors">0817-334-128</a>
+                <a href="tel:+62817334128" className="hover:text-white transition-colors">+62817334128</a>
               </div>
               <div className="flex items-start gap-2.5">
                 <svg className="flex-shrink-0 mt-0.5 text-white/30" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                   <polyline points="22,6 12,13 2,6"/>
                 </svg>
-                <a href="mailto:adithyodw@gmail.com" className="hover:text-white transition-colors">adithyodw@gmail.com</a>
+                <a href="#franchise" className="hover:text-white transition-colors">Kemitraan & investor: see franchise contact</a>
               </div>
               <div className="flex items-start gap-2.5">
                 <svg className="flex-shrink-0 mt-0.5 text-white/30" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">

@@ -130,7 +130,7 @@ export default function BranchesSection() {
             Can&apos;t find a branch near you? We also offer pickup & delivery in selected areas.
           </p>
           <Link
-            href="https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%2C%20saya%20ingin%20tahu%20layanan%20pickup%20di%20area%20saya."
+            href="https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%2C%20saya%20ingin%20tahu%20layanan%20pickup%20di%20area%20saya."
             target="_blank"
             rel="noopener noreferrer"
             className="btn-gold inline-flex"

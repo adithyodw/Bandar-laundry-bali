@@ -105,7 +105,7 @@ export default function FranchiseSection() {
               <div>
                 <div className="text-white/40 text-xs uppercase tracking-widest mb-1">WhatsApp</div>
                 <a href={WA_FRANCHISE_LINK} target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#F5A623] transition-colors">
-                  +62812902271990
+                  +62 812 9027 1990
                 </a>
               </div>
             </div>

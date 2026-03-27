@@ -22,7 +22,7 @@ type LocationData = {
 };
 
 export default function LocationPage({ data }: { data: LocationData }) {
-  const waLink = `https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Express%2C%20saya%20membutuhkan%20laundry%20di%20area%20${encodeURIComponent(data.location)}.`;
+  const waLink = `https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Express%2C%20saya%20membutuhkan%20laundry%20di%20area%20${encodeURIComponent(data.location)}.`;
 
   return (
     <>
@@ -85,7 +85,7 @@ export default function LocationPage({ data }: { data: LocationData }) {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
                   {[
                     { v: "90 Min", l: "Express Service" },
-                    { v: "Rp 7k/kg", l: "Starting Price" },
+                    { v: "Rp 45.000 / 5kg", l: "Drop Off Price" },
                     { v: "Daily", l: "07:00 – 22:00" },
                   ].map((s) => (
                     <div key={s.l} className="border border-[#F5A623]/30 p-4 text-center">

@@ -5,7 +5,7 @@
  */
 
 export default function WhatsAppFloat() {
-  const waLink = "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Express%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20laundry.";
+  const waLink = "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Express%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20laundry.";
 
   return (
     <a

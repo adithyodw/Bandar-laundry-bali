@@ -17,7 +17,7 @@ type ServiceData = {
 };
 
 export default function ServicePage({ data }: { data: ServiceData }) {
-  const waLink = `https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Express%2C%20saya%20tertarik%20dengan%20layanan%20${encodeURIComponent(data.title)}.`;
+  const waLink = `https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Express%2C%20saya%20tertarik%20dengan%20layanan%20${encodeURIComponent(data.title)}.`;
 
   return (
     <>

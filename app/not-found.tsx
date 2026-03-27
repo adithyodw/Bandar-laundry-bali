@@ -24,7 +24,7 @@ export default function NotFound() {
             Return Home
           </Link>
           <a
-            href="https://wa.me/6281290271990"
+            href="https://wa.me/62817334128"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-wa"

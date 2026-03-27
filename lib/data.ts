@@ -8,10 +8,10 @@ export const FRANCHISE_BG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663482333703/KB4KAXETgqhUXRp3CHL52M/bandar-franchise-bg-ZJsEoXt3jr4AZGoRweuEhB.webp";
 
 export const WA_LINK =
-  "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Express%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20laundry%20Anda.";
+  "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Express%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20laundry%20Anda.";
 
 export const WA_FRANCHISE_LINK =
-  "https://wa.me/62812902271990?text=Hi%2C%20I'm%20interested%20in%20Bandar%20Laundry%20franchise%20partnership.";
+  "https://wa.me/6281290271990?text=Hi%2C%20I'm%20interested%20in%20Bandar%20Laundry%20franchise%20partnership.";
 
 export const INSTAGRAM_URL = "https://www.instagram.com/bandarlaundryexpress/";
 export const FACEBOOK_URL = "https://www.facebook.com/bandarlaundryexpress/";
@@ -20,14 +20,14 @@ export const APP_PLAY_URL =
 
 // Central contact numbers
 // Support & information: +62 817 334 128
-// Franchise WA        : +62 812 9022 71990
+// Franchise WA        : +62 812 9027 1990
 export const branches = [
   {
     name: "Kebo Iwa",
     area: "Denpasar Barat",
     address: "Jl. Kebo Iwa Utara No. 125, Denpasar Barat",
     phone: "+62817334128",
-    waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Kebo%20Iwa%2C%20saya%20ingin%20pesan%20laundry.",
+    waLink: "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Cabang%20Kebo%20Iwa%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Kebo+Iwa+Utara+125+Denpasar+Bali",
     mapsEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.4!2d115.202!3d-8.651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23f75b1d7dc23%3A0x7c3f6a0e0a4b8f3a!2sJl.+Kebo+Iwa+Utara%2C+Denpasar%2C+Bali!5e0!3m2!1sen!2sid!4v1",
@@ -37,7 +37,7 @@ export const branches = [
     area: "Denpasar Barat",
     address: "Jl. Gunung Agung No. 235, Denpasar Barat",
     phone: "+62817334128",
-    waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Gunung%20Agung%2C%20saya%20ingin%20pesan%20laundry.",
+    waLink: "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Cabang%20Gunung%20Agung%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Gunung+Agung+235+Denpasar+Bali",
     mapsEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.2!2d115.214!3d-8.643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23fe8e3a3d8b7%3A0x5e8e3a3d8b7c3f6a!2sJl.+Gunung+Agung%2C+Denpasar%2C+Bali!5e0!3m2!1sen!2sid!4v1",
@@ -47,7 +47,7 @@ export const branches = [
     area: "Denpasar Timur",
     address: "Jl. Antasura No. 86, Denpasar (depan Br. Pengukuh)",
     phone: "+62817334128",
-    waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Antasura%2C%20saya%20ingin%20pesan%20laundry.",
+    waLink: "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Cabang%20Antasura%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Antasura+86+Denpasar+Bali",
     mapsEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3943.8!2d115.224!3d-8.631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23f4c1a8e4b3d%3A0x4b3d8e4c1a8f2c7e!2sJl.+Antasura%2C+Denpasar%2C+Bali!5e0!3m2!1sen!2sid!4v1",
@@ -57,7 +57,7 @@ export const branches = [
     area: "Denpasar Selatan",
     address: "Jl. Bedugul Sidakarya No. 20C, Denpasar Selatan",
     phone: "+62817334128",
-    waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Bedugul%2C%20saya%20ingin%20pesan%20laundry.",
+    waLink: "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Cabang%20Bedugul%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Bedugul+Sidakarya+20C+Denpasar+Selatan+Bali",
     mapsEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.2!2d115.231!3d-8.692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2415c3a8e4b2d%3A0x3a8e4b2d5c7f1e9a!2sJl.+Bedugul+Sidakarya%2C+Denpasar%2C+Bali!5e0!3m2!1sen!2sid!4v1",
@@ -67,7 +67,7 @@ export const branches = [
     area: "Denpasar Selatan",
     address: "Jl. Tukad Badung No. 500X, Denpasar Selatan",
     phone: "+62817334128",
-    waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Tukad%20Badung%2C%20saya%20ingin%20pesan%20laundry.",
+    waLink: "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Cabang%20Tukad%20Badung%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Tukad+Badung+500X+Denpasar+Selatan+Bali",
     mapsEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.4!2d115.241!3d-8.703!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2414a5b3c2d1e%3A0x2d1e5b3c4a7f0c8d!2sJl.+Tukad+Badung%2C+Denpasar%2C+Bali!5e0!3m2!1sen!2sid!4v1",
@@ -77,7 +77,7 @@ export const branches = [
     area: "Denpasar Utara",
     address: "Jl. Padma No. 20, Tonja, Denpasar Utara",
     phone: "+62817334128",
-    waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Tonja%2C%20saya%20ingin%20pesan%20laundry.",
+    waLink: "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Cabang%20Tonja%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Padma+Tonja+Denpasar+Utara+Bali",
     mapsEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3943.5!2d115.218!3d-8.613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23e9c7b5d3a1f%3A0x3a1f7b5d9c4e2b8c!2sJl.+Padma%2C+Tonja%2C+Denpasar+Utara%2C+Bali!5e0!3m2!1sen!2sid!4v1",
@@ -87,7 +87,7 @@ export const branches = [
     area: "Denpasar Barat",
     address: "Jl. Gunung Rinjani No. 18, Monang Maning, Denpasar",
     phone: "+62817334128",
-    waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Monang%20Maning%2C%20saya%20ingin%20pesan%20laundry.",
+    waLink: "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Cabang%20Monang%20Maning%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Gunung+Rinjani+18+Monang+Maning+Denpasar+Bali",
     mapsEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.5!2d115.197!3d-8.660!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23f1e5c3b2a0d%3A0x5c3b2a0d4e8f1c9b!2sMonang+Maning%2C+Denpasar%2C+Bali!5e0!3m2!1sen!2sid!4v1",
@@ -97,7 +97,7 @@ export const branches = [
     area: "Badung",
     address: "Jl. Gunung Sanghyang No. 17, Badung",
     phone: "+62817334128",
-    waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Gunung%20Sanghyang%2C%20saya%20ingin%20pesan%20laundry.",
+    waLink: "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Cabang%20Gunung%20Sanghyang%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Gunung+Sanghyang+17+Badung+Bali",
     mapsEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.3!2d115.186!3d-8.648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23ef7a4c3b1d9%3A0xa4c3b1d96e5f2a7c!2sJl.+Gunung+Sanghyang%2C+Kerobokan%2C+Bali!5e0!3m2!1sen!2sid!4v1",
@@ -107,7 +107,7 @@ export const branches = [
     area: "Denpasar Barat",
     address: "Jl. Buana Raya, Denpasar Barat",
     phone: "+62817334128",
-    waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Buana%20Raya%2C%20saya%20ingin%20pesan%20laundry.",
+    waLink: "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Cabang%20Buana%20Raya%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Buana+Raya+Denpasar+Bali",
     mapsEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.6!2d115.207!3d-8.668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23f3d2b1e4c5a%3A0x2b1e4c5a7d9f3e8b!2sJl.+Buana+Raya%2C+Denpasar%2C+Bali!5e0!3m2!1sen!2sid!4v1",

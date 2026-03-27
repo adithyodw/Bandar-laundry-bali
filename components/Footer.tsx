@@ -84,7 +84,7 @@ export default function Footer() {
 
               {/* WhatsApp */}
               <a
-                href="https://wa.me/6281290271990"
+                href="https://wa.me/62817334128"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-11 h-11 border border-white/20 flex items-center justify-center text-white/55 hover:text-[#25D366] hover:border-[#25D366] transition-colors rounded-sm"
@@ -194,17 +194,9 @@ export default function Footer() {
                   </a>
                 </div>
                 <div>
-                  <a href="https://wa.me/6281290271990" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                    0812-9027-1990 (WhatsApp)
-                  </a>
-                </div>
-                <div>
-                  <a
-                    href="mailto:adithyodw@gmail.com"
-                    className="hover:text-white transition-colors"
-                  >
-                    adithyodw@gmail.com
-                  </a>
+                  <Link href="/#franchise" className="hover:text-white transition-colors">
+                    Kemitraan & investor: see franchise contact
+                  </Link>
                 </div>
                 <div>Open Daily: 07:00 – 22:00</div>
               </div>
