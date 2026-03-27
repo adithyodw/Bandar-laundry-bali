@@ -70,12 +70,12 @@ export default function BestLaundryCangguPage() {
 
               <h2>Laundry Prices in Canggu</h2>
               <p>
-                Laundry prices in Canggu typically range from Rp 5.000 to Rp 12.000 per kg depending on the service level. At Bandar Laundry Express, our pricing is:
+                Laundry prices in Canggu vary depending on the service level. At Bandar Laundry Express, our current pricing is:
               </p>
               <ul>
-                <li>Express laundry: Starting from <strong>Rp 7.000/kg</strong></li>
-                <li>Regular laundry: Starting from <strong>Rp 5.000/kg</strong></li>
-                <li>Ironing: Starting from <strong>Rp 3.000/item</strong></li>
+                <li>Self Service: <strong>Rp 15.000 / Mesin</strong></li>
+                <li>Drop Off: <strong>Rp 45.000 / 5kg</strong></li>
+                <li>Ironing: <strong>Contact us</strong></li>
               </ul>
               <p>
                 We believe premium doesn&apos;t mean expensive. Our prices are fair, transparent, and inclusive of wash, dry, and fold.
@@ -118,7 +118,7 @@ export default function BestLaundryCangguPage() {
                   <div className="text-xs font-semibold tracking-widest uppercase text-[#F5A623] mb-4">Quick Summary</div>
                   <ul className="space-y-3 text-sm text-slate-600">
                     <li className="flex gap-2"><span className="text-[#F5A623]">✓</span> 90-minute express service</li>
-                    <li className="flex gap-2"><span className="text-[#F5A623]">✓</span> From Rp 5.000/kg</li>
+                    <li className="flex gap-2"><span className="text-[#F5A623]">✓</span> Drop Off Rp 45.000 / 5kg</li>
                     <li className="flex gap-2"><span className="text-[#F5A623]">✓</span> Pickup & delivery available</li>
                     <li className="flex gap-2"><span className="text-[#F5A623]">✓</span> Open daily 07:00–22:00</li>
                     <li className="flex gap-2"><span className="text-[#F5A623]">✓</span> WhatsApp ordering</li>

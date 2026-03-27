@@ -11,7 +11,7 @@ export const WA_LINK =
   "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Express%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20laundry%20Anda.";
 
 export const WA_FRANCHISE_LINK =
-  "https://wa.me/6281290271990?text=Hi%2C%20I'm%20interested%20in%20Bandar%20Laundry%20franchise%20partnership.";
+  "https://wa.me/62812902271990?text=Hi%2C%20I'm%20interested%20in%20Bandar%20Laundry%20franchise%20partnership.";
 
 export const INSTAGRAM_URL = "https://www.instagram.com/bandarlaundryexpress/";
 export const FACEBOOK_URL = "https://www.facebook.com/bandarlaundryexpress/";
@@ -19,15 +19,14 @@ export const APP_PLAY_URL =
   "https://play.google.com/store/apps/details?id=id.smartlink.wl.app_bandar&hl=id";
 
 // Central contact numbers
-// WA order line : +62 812-9027-1990 (WA_LINK above)
-// Main office   : +62 817-334-1280
-// Please update each branch phone/waLink with the actual branch-specific number if available.
+// Support & information: +62 817 334 128
+// Franchise WA        : +62 812 9022 71990
 export const branches = [
   {
     name: "Kebo Iwa",
     area: "Denpasar Barat",
     address: "Jl. Kebo Iwa Utara No. 125, Denpasar Barat",
-    phone: "0817-334-1280",
+    phone: "+62817334128",
     waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Kebo%20Iwa%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Kebo+Iwa+Utara+125+Denpasar+Bali",
     mapsEmbed:
@@ -37,7 +36,7 @@ export const branches = [
     name: "Gunung Agung",
     area: "Denpasar Barat",
     address: "Jl. Gunung Agung No. 235, Denpasar Barat",
-    phone: "0812-9027-1990",
+    phone: "+62817334128",
     waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Gunung%20Agung%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Gunung+Agung+235+Denpasar+Bali",
     mapsEmbed:
@@ -47,7 +46,7 @@ export const branches = [
     name: "Antasura",
     area: "Denpasar Timur",
     address: "Jl. Antasura No. 86, Denpasar (depan Br. Pengukuh)",
-    phone: "0817-334-1280",
+    phone: "+62817334128",
     waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Antasura%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Antasura+86+Denpasar+Bali",
     mapsEmbed:
@@ -57,7 +56,7 @@ export const branches = [
     name: "Bedugul",
     area: "Denpasar Selatan",
     address: "Jl. Bedugul Sidakarya No. 20C, Denpasar Selatan",
-    phone: "0812-9027-1990",
+    phone: "+62817334128",
     waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Bedugul%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Bedugul+Sidakarya+20C+Denpasar+Selatan+Bali",
     mapsEmbed:
@@ -67,7 +66,7 @@ export const branches = [
     name: "Tukad Badung",
     area: "Denpasar Selatan",
     address: "Jl. Tukad Badung No. 500X, Denpasar Selatan",
-    phone: "0817-334-1280",
+    phone: "+62817334128",
     waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Tukad%20Badung%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Tukad+Badung+500X+Denpasar+Selatan+Bali",
     mapsEmbed:
@@ -77,7 +76,7 @@ export const branches = [
     name: "Padma / Tonja",
     area: "Denpasar Utara",
     address: "Jl. Padma No. 20, Tonja, Denpasar Utara",
-    phone: "0812-9027-1990",
+    phone: "+62817334128",
     waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Tonja%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Padma+Tonja+Denpasar+Utara+Bali",
     mapsEmbed:
@@ -87,7 +86,7 @@ export const branches = [
     name: "Monang Maning",
     area: "Denpasar Barat",
     address: "Jl. Gunung Rinjani No. 18, Monang Maning, Denpasar",
-    phone: "0817-334-1280",
+    phone: "+62817334128",
     waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Monang%20Maning%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Gunung+Rinjani+18+Monang+Maning+Denpasar+Bali",
     mapsEmbed:
@@ -97,7 +96,7 @@ export const branches = [
     name: "Gunung Sanghyang",
     area: "Badung",
     address: "Jl. Gunung Sanghyang No. 17, Badung",
-    phone: "0812-9027-1990",
+    phone: "+62817334128",
     waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Gunung%20Sanghyang%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Gunung+Sanghyang+17+Badung+Bali",
     mapsEmbed:
@@ -107,7 +106,7 @@ export const branches = [
     name: "Buana Raya",
     area: "Denpasar Barat",
     address: "Jl. Buana Raya, Denpasar Barat",
-    phone: "0817-334-1280",
+    phone: "+62817334128",
     waLink: "https://wa.me/6281290271990?text=Halo%20Bandar%20Laundry%20Cabang%20Buana%20Raya%2C%20saya%20ingin%20pesan%20laundry.",
     maps: "https://www.google.com/maps/search/Bandar+Laundry+Express+Jl+Buana+Raya+Denpasar+Bali",
     mapsEmbed:
@@ -122,7 +121,7 @@ export const services = [
     subtitle: "90 Minutes",
     desc: "Our signature service. Drop off your clothes and collect them fresh, clean, and neatly folded within 90 minutes.",
     highlight: true,
-    price: "Starting from Rp 7.000/kg",
+    price: "Self Service: Rp 15.000 / Mesin",
     features: [
       "Ready in 90 minutes",
       "Wash + dry + fold",
@@ -136,7 +135,7 @@ export const services = [
     subtitle: "Standard Care",
     desc: "Full wash, dry, and fold service with careful attention to fabric types and garment care instructions.",
     highlight: false,
-    price: "Starting from Rp 5.000/kg",
+    price: "Drop Off: Rp 45.000 / 5kg",
     features: [
       "Next-day delivery",
       "Fabric-specific care",
@@ -150,7 +149,7 @@ export const services = [
     subtitle: "Crisp & Neat",
     desc: "Professional ironing for shirts, trousers, dresses, and formal wear. Delivered wrinkle-free and ready to wear.",
     highlight: false,
-    price: "Starting from Rp 3.000/item",
+    price: "Contact us for ironing rates",
     features: [
       "Steam ironing",
       "Formal & casual wear",
@@ -164,7 +163,7 @@ export const services = [
     subtitle: "Hotels & Villas",
     desc: "Bulk laundry solutions for hotels, villas, restaurants, and spas. Reliable, consistent, and scalable.",
     highlight: false,
-    price: "Custom pricing",
+    price: "Contact us for commercial rates",
     features: [
       "Bulk volume pricing",
       "Hotel-grade quality",

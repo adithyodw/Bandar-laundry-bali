@@ -5,7 +5,7 @@ import { WA_LINK } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Laundry Price in Bali 2025 — Complete Price Guide | Bandar Laundry Express",
   description:
-    "How much does laundry cost in Bali? Complete 2025 price guide for laundry services in Bali. Bandar Laundry Express: from Rp 5.000/kg for regular, Rp 7.000/kg for express.",
+    "How much does laundry cost in Bali? Complete 2025 price guide for laundry services in Bali. Bandar Laundry Express pricing: Self Service Rp 15.000 / Mesin and Drop Off Rp 45.000 / 5kg.",
 };
 
 export default function LaundryPriceBaliPage() {
@@ -40,7 +40,7 @@ export default function LaundryPriceBaliPage() {
             <div className="lg:col-span-2 prose-brand">
               <h2>How Much Does Laundry Cost in Bali?</h2>
               <p>
-                Laundry prices in Bali vary significantly depending on location, service type, and quality. In general, you can expect to pay between Rp 4.000 and Rp 15.000 per kg for standard wash and fold services. Express services, ironing, and specialty care typically cost more.
+                Laundry prices in Bali vary significantly depending on location, service type, and quality. At Bandar Laundry Express, we keep pricing simple with two main options: Self Service and Drop Off package.
               </p>
 
               <h2>Bandar Laundry Express Price List (2025)</h2>
@@ -57,9 +57,9 @@ export default function LaundryPriceBaliPage() {
                   </thead>
                   <tbody>
                     {[
-                      { service: "Regular Laundry", price: "From Rp 5.000/kg", turnaround: "Next day" },
-                      { service: "Express Laundry", price: "From Rp 7.000/kg", turnaround: "90 minutes" },
-                      { service: "Ironing Service", price: "From Rp 3.000/item", turnaround: "Same day" },
+                      { service: "Self Service", price: "Rp 15.000 / Mesin", turnaround: "Depends on load" },
+                      { service: "Drop Off", price: "Rp 45.000 / 5kg", turnaround: "Standard service" },
+                      { service: "Ironing Service", price: "Contact us", turnaround: "By request" },
                       { service: "Commercial Laundry", price: "Custom (bulk)", turnaround: "Scheduled" },
                     ].map((row, i) => (
                       <tr key={row.service} className={i % 2 === 0 ? "bg-[#FAF8F4]" : "bg-white"}>
@@ -93,7 +93,7 @@ export default function LaundryPriceBaliPage() {
               <h2>Tips for Getting the Best Laundry Value in Bali</h2>
               <ul>
                 <li>Bundle multiple loads together for better per-kg rates</li>
-                <li>Choose regular over express when you have time — save 20-30%</li>
+                    <li>Choose the Drop Off package for simple, predictable pricing</li>
                 <li>Ask about monthly packages if you are a long-term resident</li>
                 <li>Commercial accounts at hotels and villas get the best rates</li>
               </ul>
@@ -120,16 +120,16 @@ export default function LaundryPriceBaliPage() {
                   <div className="text-xs font-semibold tracking-widest uppercase text-[#F5A623] mb-4">Price Summary</div>
                   <ul className="space-y-3 text-sm">
                     <li className="flex justify-between border-b border-slate-100 pb-2">
-                      <span className="text-slate-600">Regular</span>
-                      <span className="font-semibold text-[#1B3FA0]">Rp 5.000/kg</span>
+                      <span className="text-slate-600">Self Service</span>
+                      <span className="font-semibold text-[#1B3FA0]">Rp 15.000 / Mesin</span>
                     </li>
                     <li className="flex justify-between border-b border-slate-100 pb-2">
-                      <span className="text-slate-600">Express</span>
-                      <span className="font-semibold text-[#1B3FA0]">Rp 7.000/kg</span>
+                      <span className="text-slate-600">Drop Off</span>
+                      <span className="font-semibold text-[#1B3FA0]">Rp 45.000 / 5kg</span>
                     </li>
                     <li className="flex justify-between">
                       <span className="text-slate-600">Ironing</span>
-                      <span className="font-semibold text-[#1B3FA0]">Rp 3.000/item</span>
+                      <span className="font-semibold text-[#1B3FA0]">Contact us</span>
                     </li>
                   </ul>
                   <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="btn-wa w-full justify-center mt-5 block text-center">

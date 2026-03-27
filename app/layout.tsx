@@ -98,7 +98,7 @@ const localBusinessSchema = {
   description:
     "Bali's first digital laundry service. 90-minute express turnaround across 9 branches in Denpasar and Badung.",
   url: "https://bandar-laundry-manus.vercel.app",
-  telephone: "+628173341280",
+  telephone: "+62817334128",
   email: "adithyodw@gmail.com",
   image:
     "https://d2xsxph8kpxj0f.cloudfront.net/310519663482333703/KB4KAXETgqhUXRp3CHL52M/bandar-logo_110b4814.png",
@@ -151,7 +151,7 @@ const organizationSchema = {
   logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663482333703/KB4KAXETgqhUXRp3CHL52M/bandar-logo_110b4814.png",
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+628173341280",
+    telephone: "+62817334128",
     contactType: "customer service",
     areaServed: "ID",
     availableLanguage: ["English", "Indonesian"],

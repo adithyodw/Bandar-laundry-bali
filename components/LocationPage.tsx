@@ -182,10 +182,10 @@ export default function LocationPage({ data }: { data: LocationData }) {
                     Chat on WhatsApp
                   </a>
                   <a
-                    href="tel:+628173341280"
+                    href="tel:+62817334128"
                     className="btn-outline-white w-full justify-center mt-3"
                   >
-                    Call: 0817-334-128
+                    Call: +62817334128
                   </a>
                 </div>
 

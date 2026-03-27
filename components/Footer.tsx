@@ -189,8 +189,8 @@ export default function Footer() {
               </div>
               <div className="space-y-3 text-sm text-white/55">
                 <div>
-                  <a href="tel:+628173341280" className="hover:text-white transition-colors">
-                    0817-334-1280
+                  <a href="tel:+62817334128" className="hover:text-white transition-colors">
+                    +62817334128
                   </a>
                 </div>
                 <div>

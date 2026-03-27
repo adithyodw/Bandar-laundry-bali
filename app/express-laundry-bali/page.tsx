@@ -16,7 +16,7 @@ const serviceData = {
   title: "Express Laundry",
   subtitle: "Ready in 90 Minutes",
   desc: "Our signature service. Drop off your clothes and collect them fresh, clean, and neatly folded within 90 minutes. Available at all 9 branches across Bali.",
-  price: "Starting from Rp 7.000/kg",
+  price: "Self Service: Rp 15.000 / Mesin",
   features: ["Ready in 90 minutes", "Wash + dry + fold", "Fragrant detergent", "Quality guarantee", "Available daily 07:00–22:00"],
   longDesc:
     "Bandar Laundry Express is renowned for its signature 90-minute express laundry service — the fastest professional laundry turnaround in Bali. Whether you are a hotel guest needing fresh clothes before a meeting, a surfer with salt-soaked gear, or a local resident on a tight schedule, our express service delivers without compromise. We use premium, fabric-safe detergents and modern equipment to ensure your clothes come out fresh, clean, and perfectly folded every time.",

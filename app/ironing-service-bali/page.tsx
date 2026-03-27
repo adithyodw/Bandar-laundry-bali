@@ -12,7 +12,7 @@ const serviceData = {
   title: "Ironing Service",
   subtitle: "Crisp & Wrinkle-Free",
   desc: "Professional steam ironing for shirts, trousers, dresses, and formal wear. Delivered crisp, neat, and ready to wear. Same-day service available.",
-  price: "Starting from Rp 3.000/item",
+  price: "Please contact us for current ironing rates",
   features: ["Steam ironing", "Formal & casual wear", "Shirts, trousers, dresses", "Same-day available", "Hanger service option"],
   longDesc:
     "Appearance matters, especially in Bali's vibrant hospitality scene. Our professional ironing service uses steam pressing equipment to deliver perfectly crisp garments every time. From business shirts to cocktail dresses, linen suits to Balinese traditional wear, we handle each item with the precision it deserves. Perfect for hotel guests attending business meetings, wedding guests, or anyone who needs to look their best in Bali's tropical climate.",
