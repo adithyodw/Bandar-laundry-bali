@@ -44,7 +44,7 @@ export default function LaundryPriceBaliPage() {
               </p>
 
               <h2>Bandar Laundry Express Price List (2025)</h2>
-              <p>At Bandar Laundry Express, our pricing is transparent and competitive:</p>
+              <p>Here is our latest professional price list and service scope:</p>
 
               <div className="not-prose overflow-hidden border border-slate-200 mb-6">
                 <table className="w-full text-sm">
@@ -57,10 +57,10 @@ export default function LaundryPriceBaliPage() {
                   </thead>
                   <tbody>
                     {[
-                      { service: "Self Service", price: "Rp 15.000 / Mesin", turnaround: "Depends on load" },
-                      { service: "Drop Off", price: "Rp 45.000 / 5kg", turnaround: "Standard service" },
-                      { service: "Ironing Service", price: "Contact us", turnaround: "By request" },
-                      { service: "Commercial Laundry", price: "Custom (bulk)", turnaround: "Scheduled" },
+                      { service: "Self Service", price: "Rp 15.000 / Mesin", turnaround: "45 min wash + 45 min dry (~90 min)" },
+                      { service: "Drop Off (Wash, Dry, Fold)", price: "Rp 45.000 / 5kg", turnaround: "Estimated 3 hours (queue based)" },
+                      { service: "Dry Clean / Item Care", price: "By item and treatment", turnaround: "~2 days (item dependent)" },
+                      { service: "Ironing", price: "Rp 35.000 / 5kg", turnaround: "Estimated 1 x 24 hours" },
                     ].map((row, i) => (
                       <tr key={row.service} className={i % 2 === 0 ? "bg-[#FAF8F4]" : "bg-white"}>
                         <td className="px-4 py-3 font-medium text-[#0D1B2A]">{row.service}</td>
@@ -80,20 +80,38 @@ export default function LaundryPriceBaliPage() {
                 Bandar Laundry Express maintains consistent pricing across all 9 branches regardless of location — what you pay in Denpasar is the same as what you pay in Badung.
               </p>
 
-              <h2>What&apos;s Included in the Price?</h2>
-              <p>At Bandar Laundry Express, all prices include:</p>
+              <h2>Detailed Service Information</h2>
+              <h3>1) Self Service (Wash Your Own)</h3>
               <ul>
-                <li>Full wash with premium detergent</li>
-                <li>Machine drying</li>
-                <li>Neat folding</li>
-                <li>Plastic packaging</li>
+                <li>Machine rental system: washer Rp 15.000 and dryer Rp 15.000 (no weight calculation).</li>
+                <li>Maximum load follows the fill line marked on each machine.</li>
+                <li>Includes free detergent, fragrance, and plastic packing.</li>
+                <li>Estimated process: 45 minutes washing + 45 minutes drying (approximately 90 minutes total).</li>
               </ul>
-              <p>Optional add-ons at extra cost: fabric softener, hanger service, special stain treatment.</p>
+
+              <h3>2) Drop Off (Wash, Dry, Fold - No Ironing)</h3>
+              <ul>
+                <li>Handled end-to-end by our laundry team.</li>
+                <li>Estimated completion is approximately 3 hours, counted from receipt/processing start time (queue based).</li>
+                <li>Pricing is Rp 45.000 per 5kg and applies in 5kg increments.</li>
+              </ul>
+
+              <h3>3) Dry Clean (Item Service)</h3>
+              <ul>
+                <li>Estimated completion is approximately 2 days, depending on item type.</li>
+                <li>Handled with specific treatment methods for delicate or special-care items.</li>
+              </ul>
+
+              <h3>4) Ironing</h3>
+              <ul>
+                <li>Estimated completion is 1 x 24 hours, counted from receipt creation time.</li>
+                <li>Pricing is Rp 35.000 per 5kg and applies in 5kg increments.</li>
+              </ul>
 
               <h2>Tips for Getting the Best Laundry Value in Bali</h2>
               <ul>
-                <li>Bundle multiple loads together for better per-kg rates</li>
-                    <li>Choose the Drop Off package for simple, predictable pricing</li>
+                    <li>Use Self Service when you need fastest turnaround and direct control.</li>
+                    <li>Use Drop Off for convenience and predictable all-in pricing.</li>
                 <li>Ask about monthly packages if you are a long-term resident</li>
                 <li>Commercial accounts at hotels and villas get the best rates</li>
               </ul>
@@ -127,9 +145,13 @@ export default function LaundryPriceBaliPage() {
                       <span className="text-slate-600">Drop Off</span>
                       <span className="font-semibold text-[#1B3FA0]">Rp 45.000 / 5kg</span>
                     </li>
-                    <li className="flex justify-between">
+                    <li className="flex justify-between border-b border-slate-100 pb-2">
                       <span className="text-slate-600">Ironing</span>
-                      <span className="font-semibold text-[#1B3FA0]">Contact us</span>
+                      <span className="font-semibold text-[#1B3FA0]">Rp 35.000 / 5kg</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span className="text-slate-600">Dry Clean</span>
+                      <span className="font-semibold text-[#1B3FA0]">By item</span>
                     </li>
                   </ul>
                   <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="btn-wa w-full justify-center mt-5 block text-center">

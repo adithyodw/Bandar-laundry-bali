@@ -10,7 +10,7 @@ const faqs = [
   {
     question: "How much does laundry cost in Bali?",
     answer:
-      "Laundry prices in Bali vary by service type. At Bandar Laundry Express, our core pricing is Self Service Rp 15.000 / Mesin and Drop Off Rp 45.000 / 5kg. For ironing and commercial laundry, please contact us for the latest rate.",
+      "Laundry prices in Bali vary by service type. At Bandar Laundry Express, our core pricing is Self Service Rp 15.000 / Mesin and Drop Off Rp 45.000 / 5kg. Our ironing service is Rp 35.000 / 5kg, and dry-clean/item-care service is priced based on item type and treatment.",
   },
   {
     question: "How fast is express laundry in Bali?",

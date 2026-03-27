@@ -75,7 +75,7 @@ export default function BestLaundryCangguPage() {
               <ul>
                 <li>Self Service: <strong>Rp 15.000 / Mesin</strong></li>
                 <li>Drop Off: <strong>Rp 45.000 / 5kg</strong></li>
-                <li>Ironing: <strong>Contact us</strong></li>
+                <li>Ironing: <strong>Rp 35.000 / 5kg</strong></li>
               </ul>
               <p>
                 We believe premium doesn&apos;t mean expensive. Our prices are fair, transparent, and inclusive of wash, dry, and fold.

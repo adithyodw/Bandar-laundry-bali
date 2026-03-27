@@ -149,12 +149,12 @@ export const services = [
     subtitle: "Crisp & Neat",
     desc: "Professional ironing for shirts, trousers, dresses, and formal wear. Delivered wrinkle-free and ready to wear.",
     highlight: false,
-    price: "Contact us for ironing rates",
+    price: "Ironing: Rp 35.000 / 5kg",
     features: [
       "Steam ironing",
       "Formal & casual wear",
       "Shirts & trousers",
-      "Same-day available",
+      "Estimated 1 x 24 hours",
     ],
   },
   {
