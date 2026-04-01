@@ -1724,7 +1724,7 @@ function CTASection({ lang }: { lang: Lang }) {
                   +62 812 9027 1990
                 </a>
                 <div className="text-white/35 text-xs mt-0.5">
-                  {t({ id: "Tim franchise", en: "Franchise team" })}
+                  {t({ id: "Tim Waralaba", en: "Franchise team" })}
                 </div>
               </div>
               <div>
