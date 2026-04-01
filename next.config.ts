@@ -1,6 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/kemitraan",
+        destination: "/franchise",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     // Modern formats — Next.js will serve AVIF/WebP when browser supports them
     formats: ["image/avif", "image/webp"],

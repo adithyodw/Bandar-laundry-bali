@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { FRANCHISE_BG, WA_FRANCHISE_LINK } from "@/lib/data";
 
 const benefits = [
@@ -49,7 +50,7 @@ export default function FranchiseSection() {
             <div className="flex items-center gap-3 mb-3">
               <span className="block w-8 h-px bg-[#F5A623]" />
               <span className="text-[#F5A623] text-xs font-semibold tracking-[0.18em] uppercase">
-                Kemitraan &amp; Franchise
+                Franchise &amp; investment
               </span>
             </div>
             <h2
@@ -75,7 +76,13 @@ export default function FranchiseSection() {
               selection to grand opening and beyond.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
+              <Link
+                href="/franchise"
+                className="btn-gold justify-center sm:justify-start text-center"
+              >
+                Franchise overview
+              </Link>
               <a
                 href={WA_FRANCHISE_LINK}
                 target="_blank"

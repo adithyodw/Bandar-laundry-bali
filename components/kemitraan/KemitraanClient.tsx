@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { FRANCHISE_BG, WA_FRANCHISE_LINK } from "@/lib/data";
+import { ACTUAL_STORE_GALLERY } from "@/lib/store-gallery";
 
 // ─────────────────────────────────────────────────────────────
 // Types & helpers
@@ -17,9 +19,13 @@ function useT(lang: Lang) {
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 } as object,
+  whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay },
+  transition: {
+    duration: 0.7,
+    ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    delay,
+  },
 });
 
 // ─────────────────────────────────────────────────────────────
@@ -69,7 +75,7 @@ function HeroSection({ lang }: { lang: Lang }) {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <Image
         src={FRANCHISE_BG}
-        alt="Bandar Laundry Express Partnership Opportunity"
+        alt="Bandar Laundry Express franchise investment opportunity"
         fill
         className="object-cover"
         priority
@@ -96,8 +102,8 @@ function HeroSection({ lang }: { lang: Lang }) {
             <span className="block w-10 h-px bg-[#F5A623]/60" />
             <span className="text-[#F5A623] text-[10px] font-bold tracking-[0.28em] uppercase">
               {t({
-                id: "Peluang Kemitraan · Bali, Indonesia",
-                en: "Partnership Opportunity · Bali, Indonesia",
+                id: "Peluang Waralaba · Bali, Indonesia",
+                en: "Franchise opportunity · Bali, Indonesia",
               })}
             </span>
             <span className="block w-10 h-px bg-[#F5A623]/60" />
@@ -110,7 +116,7 @@ function HeroSection({ lang }: { lang: Lang }) {
               fontSize: "clamp(2.5rem, 7.5vw, 5.5rem)",
             }}
           >
-            {t({ id: "Kemitraan", en: "Partnership" })}
+            {t({ id: "Waralaba", en: "Franchise" })}
             <br />
             <span className="text-[#F5A623] italic">Bandar Laundry Express</span>
           </h1>
@@ -234,8 +240,8 @@ function CompanyOverview({ lang }: { lang: Lang }) {
               </p>
               <p>
                 {t({
-                  id: "Model kemitraan kami dirancang untuk memberikan peluang bisnis yang terstruktur, scalable, dan menguntungkan — dengan dukungan sistem, branding, dan operasional yang sudah teruji.",
-                  en: "Our partnership model is designed to deliver a structured, scalable, and profitable business opportunity — backed by a tested system, strong branding, and comprehensive operational support.",
+                  id: "Model waralaba kami dirancang untuk memberikan peluang bisnis yang terstruktur, scalable, dan menguntungkan — dengan dukungan sistem, branding, dan operasional yang sudah teruji.",
+                  en: "Our franchise model is designed to deliver a structured, scalable, and profitable business opportunity — backed by a tested system, strong branding, and comprehensive operational support.",
                 })}
               </p>
             </div>
@@ -290,6 +296,215 @@ function CompanyOverview({ lang }: { lang: Lang }) {
           </motion.div>
         </div>
       </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// 2b. STORE GALLERY (actual locations)
+// ─────────────────────────────────────────────────────────────
+const galleryAspects = [
+  "aspect-[5/4]",
+  "aspect-[3/4]",
+  "aspect-square",
+  "aspect-[4/5]",
+];
+
+function StoreGallerySection({ lang }: { lang: Lang }) {
+  const t = useT(lang);
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    if (lightbox === null) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(null);
+      if (e.key === "ArrowRight") {
+        setLightbox((i) =>
+          i === null ? null : (i + 1) % ACTUAL_STORE_GALLERY.length,
+        );
+      }
+      if (e.key === "ArrowLeft") {
+        setLightbox((i) =>
+          i === null
+            ? null
+            : (i - 1 + ACTUAL_STORE_GALLERY.length) % ACTUAL_STORE_GALLERY.length,
+        );
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [lightbox]);
+
+  if (ACTUAL_STORE_GALLERY.length === 0) return null;
+
+  const item = lightbox !== null ? ACTUAL_STORE_GALLERY[lightbox] : null;
+
+  const lightboxUi =
+    mounted &&
+    item &&
+    createPortal(
+      <div
+        className="fixed inset-0 z-[200] flex flex-col"
+        role="dialog"
+        aria-modal="true"
+        aria-label={t(item.caption)}
+      >
+        <button
+          type="button"
+          className="absolute inset-0 bg-[#0D1B2A]/95 backdrop-blur-sm cursor-default"
+          aria-label={lang === "id" ? "Tutup" : "Close"}
+          onClick={() => setLightbox(null)}
+        />
+        <div className="relative z-10 flex flex-1 items-center justify-center p-4 md:p-10 pointer-events-none">
+          <div className="relative w-full max-w-6xl max-h-[88vh] aspect-[4/3] pointer-events-auto">
+            <Image
+              src={item.src}
+              alt={t(item.caption)}
+              fill
+              className="object-contain"
+              sizes="(max-width: 1200px) 100vw, 1200px"
+              priority
+            />
+          </div>
+        </div>
+        <div className="relative z-10 flex items-center justify-between gap-4 px-4 md:px-10 pb-6 md:pb-10 pointer-events-none">
+          <p className="text-white/70 text-sm max-w-xl text-center md:text-left flex-1">
+            {t(item.caption)}
+          </p>
+          <div className="flex items-center gap-2 pointer-events-auto">
+            <button
+              type="button"
+              onClick={() =>
+                setLightbox((i) =>
+                  i === null
+                    ? null
+                    : (i - 1 + ACTUAL_STORE_GALLERY.length) %
+                      ACTUAL_STORE_GALLERY.length,
+                )
+              }
+              className="w-11 h-11 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors flex items-center justify-center text-lg"
+              aria-label={lang === "id" ? "Sebelumnya" : "Previous"}
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                setLightbox((i) =>
+                  i === null
+                    ? null
+                    : (i + 1) % ACTUAL_STORE_GALLERY.length,
+                )
+              }
+              className="w-11 h-11 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors flex items-center justify-center text-lg"
+              aria-label={lang === "id" ? "Berikutnya" : "Next"}
+            >
+              ›
+            </button>
+            <button
+              type="button"
+              onClick={() => setLightbox(null)}
+              className="ml-2 px-4 py-2 text-[10px] font-bold tracking-[0.2em] uppercase text-[#F5A623] border border-[#F5A623]/50 hover:bg-[#F5A623]/10 rounded-full transition-colors"
+            >
+              {lang === "id" ? "Tutup" : "Close"}
+            </button>
+          </div>
+        </div>
+      </div>,
+      document.body,
+    );
+
+  return (
+    <section className="py-20 md:py-28 bg-[#0D1B2A] relative overflow-hidden">
+      <div
+        className="absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 20% 30%, rgba(245,166,35,0.4) 0%, transparent 45%), radial-gradient(circle at 80% 70%, rgba(27,63,160,0.5) 0%, transparent 40%)",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative container">
+        <motion.div {...fadeUp()} className="max-w-2xl mb-12 md:mb-16">
+          <SectionLabel>
+            <span className="text-[#F5A623]">
+              {t({ id: "Jaringan Gerai", en: "Store network" })}
+            </span>
+          </SectionLabel>
+          <h2
+            className="font-bold text-white leading-tight mb-4"
+            style={{
+              fontFamily: "var(--font-playfair), serif",
+              fontSize: "clamp(1.75rem, 4.5vw, 2.75rem)",
+            }}
+          >
+            {t({
+              id: "Lokasi nyata. Operasional terbukti.",
+              en: "Real locations. Proven operations.",
+            })}
+          </h2>
+          <p className="text-white/55 leading-relaxed text-sm md:text-base">
+            {t({
+              id: "Potret fasilitas dan gerai kami di Bali — standar yang sama yang akan menjadi dasar investasi Anda.",
+              en: "A curated look at our Bali facilities — the same operational standard that underpins your investment.",
+            })}
+          </p>
+        </motion.div>
+
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-5 [column-fill:_balance]">
+          {ACTUAL_STORE_GALLERY.map((imageItem, i) => (
+            <motion.div
+              key={`${imageItem.src}-${i}`}
+              {...fadeUp(i * 0.06)}
+              className="break-inside-avoid mb-4 md:mb-5"
+            >
+              <button
+                type="button"
+                onClick={() => setLightbox(i)}
+                className="group block w-full text-left rounded-sm overflow-hidden border border-white/10 bg-[#1B2838]/80 shadow-lg shadow-black/20 transition-all duration-500 hover:border-[#F5A623]/35 hover:shadow-[#F5A623]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5A623] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D1B2A]"
+              >
+                <div
+                  className={`relative w-full overflow-hidden ${galleryAspects[i % galleryAspects.length]}`}
+                >
+                  <Image
+                    src={imageItem.src}
+                    alt={t(imageItem.caption)}
+                    fill
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-[#0D1B2A]/70 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500"
+                    aria-hidden="true"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
+                    <span className="text-[9px] font-bold tracking-[0.22em] uppercase text-[#F5A623]/90">
+                      {t({ id: "Klik untuk perbesar", en: "Click to enlarge" })}
+                    </span>
+                    <p
+                      className="mt-1 text-white text-sm font-medium leading-snug line-clamp-2"
+                      style={{ fontFamily: "var(--font-playfair), serif" }}
+                    >
+                      {t(imageItem.caption)}
+                    </p>
+                  </div>
+                </div>
+              </button>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {lightboxUi}
     </section>
   );
 }
@@ -394,8 +609,8 @@ function KeyMetrics({ lang }: { lang: Lang }) {
           className="text-center text-white/40 text-sm mt-10 max-w-lg mx-auto leading-relaxed"
         >
           {t({
-            id: '"Lebih dari 100.000 pelanggan telah menggunakan layanan kami — dan kepercayaan mereka adalah fondasi dari kemitraan ini."',
-            en: '"Over 100,000 customers have used our services — and their trust is the foundation of this partnership."',
+            id: '"Lebih dari 100.000 pelanggan telah menggunakan layanan kami — dan kepercayaan mereka adalah fondasi dari program waralaba ini."',
+            en: '"Over 100,000 customers have used our services — and their trust is the foundation of this franchise."',
           })}
         </motion.p>
       </div>
@@ -481,8 +696,8 @@ function BusinessModel({ lang }: { lang: Lang }) {
           </h2>
           <p className="text-slate-500 leading-relaxed">
             {t({
-              id: "Enam pilar yang membentuk keunggulan kompetitif Bandar Laundry Express — dan alasan mengapa kemitraan ini layak dipertimbangkan secara serius.",
-              en: "Six pillars that form the competitive advantage of Bandar Laundry Express — and the reason this partnership merits serious consideration.",
+              id: "Enam pilar yang membentuk keunggulan kompetitif Bandar Laundry Express — dan alasan mengapa investasi waralaba ini layak dipertimbangkan secara serius.",
+              en: "Six pillars that form the competitive advantage of Bandar Laundry Express — and the reason this franchise merits serious consideration.",
             })}
           </p>
         </motion.div>
@@ -520,7 +735,8 @@ function BusinessModel({ lang }: { lang: Lang }) {
 // ─────────────────────────────────────────────────────────────
 type Package = {
   name: string;
-  plant: string;
+  plant: Bilingual;
+  tierHint: Bilingual;
   priceRange: { id: string; en: string };
   badge: { id: string; en: string } | null;
   featured: boolean;
@@ -530,10 +746,39 @@ type Package = {
   features: { id: string; en: string }[];
 };
 
+const DIGITAL_STARTUP_PLANT: Bilingual = {
+  id: "Paket Digital Start Up",
+  en: "Digital Startup Package",
+};
+
+const CORE_PACKAGE_FEATURES: { id: string; en: string }[] = [
+  {
+    id: "5 unit stack washer & dryer (komersial)",
+    en: "5 commercial stack washer & dryer units",
+  },
+  {
+    id: "Instalasi listrik, air, dan gas — 5 unit (per stack)",
+    en: "Electrical, water & gas installation — 5 units (per stack)",
+  },
+  {
+    id: "1 unit aplikasi laundry digital",
+    en: "1 digital laundry application unit",
+  },
+  {
+    id: "Perlengkapan produksi: sabun, plastik, solasi, keranjang, hanger, chemical, parfum",
+    en: "Production supplies: detergent, plastic, tape, baskets, hangers, chemicals, fragrance",
+  },
+  {
+    id: "Branding promosi: papan nama, neon box, papan promosi berdiri",
+    en: "Promotional branding: signage, neon box, standing promotional board",
+  },
+];
+
 const packages: Package[] = [
   {
     name: "Calathea",
-    plant: "Entry",
+    plant: DIGITAL_STARTUP_PLANT,
+    tierHint: { id: "Tingkat Entry", en: "Entry tier" },
     priceRange: {
       id: "IDR 325 – 375 Juta",
       en: "IDR 325 – 375 Million",
@@ -547,10 +792,11 @@ const packages: Package[] = [
     area: { id: "Min. 30 – 45 m²", en: "Min. 30 – 45 m²" },
     roi: { id: "Estimasi 24 – 36 bulan", en: "Est. 24 – 36 months" },
     features: [
-      { id: "2 unit mesin cuci komersial 8 kg", en: "2 commercial 8 kg washers" },
-      { id: "2 unit mesin pengering komersial", en: "2 commercial dryers" },
-      { id: "Sistem digital ordering", en: "Digital ordering system" },
-      { id: "Branding eksterior & interior", en: "Exterior & interior branding" },
+      ...CORE_PACKAGE_FEATURES,
+      {
+        id: "Brand mesin: LG Commercial & Speed Queen",
+        en: "Machine brands: LG Commercial & Speed Queen",
+      },
       { id: "Pelatihan staf & manajemen", en: "Staff & management training" },
       { id: "Dukungan marketing digital", en: "Digital marketing support" },
       { id: "Panduan SOP operasional lengkap", en: "Full operational SOP guide" },
@@ -558,7 +804,8 @@ const packages: Package[] = [
   },
   {
     name: "Caladium",
-    plant: "Standard",
+    plant: DIGITAL_STARTUP_PLANT,
+    tierHint: { id: "Tingkat Standard", en: "Standard tier" },
     priceRange: {
       id: "IDR 425 – 475 Juta",
       en: "IDR 425 – 475 Million",
@@ -572,11 +819,13 @@ const packages: Package[] = [
     area: { id: "Min. 50 – 70 m²", en: "Min. 50 – 70 m²" },
     roi: { id: "Estimasi 18 – 24 bulan", en: "Est. 18 – 24 months" },
     features: [
-      { id: "4 unit mesin cuci komersial 10 kg", en: "4 commercial 10 kg washers" },
-      { id: "4 unit mesin pengering komersial", en: "4 commercial dryers" },
+      ...CORE_PACKAGE_FEATURES,
+      {
+        id: "Brand mesin: LG Commercial & Maytag Full Stack",
+        en: "Machine brands: LG Commercial & Maytag Full Stack",
+      },
       { id: "Layanan express 90 menit", en: "90-minute express service" },
       { id: "Sistem digital & POS terintegrasi", en: "Integrated digital & POS system" },
-      { id: "Branding premium lengkap", en: "Full premium branding" },
       { id: "Pelatihan intensif 2 minggu", en: "2-week intensive training" },
       { id: "Dukungan operasional 12 bulan", en: "12-month operational support" },
       { id: "Laporan kinerja bulanan", en: "Monthly performance reporting" },
@@ -584,7 +833,8 @@ const packages: Package[] = [
   },
   {
     name: "Monstera",
-    plant: "Premium",
+    plant: DIGITAL_STARTUP_PLANT,
+    tierHint: { id: "Tingkat Premium", en: "Premium tier" },
     priceRange: {
       id: "IDR 525 – 575 Juta",
       en: "IDR 525 – 575 Million",
@@ -598,9 +848,12 @@ const packages: Package[] = [
     area: { id: "Min. 80 – 120 m²", en: "Min. 80 – 120 m²" },
     roi: { id: "Estimasi 12 – 18 bulan", en: "Est. 12 – 18 months" },
     features: [
-      { id: "6 unit mesin cuci komersial 12 kg", en: "6 commercial 12 kg washers" },
-      { id: "6 unit mesin pengering komersial", en: "6 commercial dryers" },
-      { id: "Kapasitas penuh self-service & drop-off", en: "Full self-service & drop-off capacity" },
+      ...CORE_PACKAGE_FEATURES,
+      {
+        id: "Brand mesin: Huebsch Commercial",
+        en: "Machine brands: Huebsch Commercial",
+      },
+      { id: "Kapasitas self-service & drop-off penuh", en: "Full self-service & drop-off capacity" },
       { id: "Sistem manajemen terintegrasi", en: "Integrated management system" },
       { id: "Priority partner support", en: "Priority partner support" },
       { id: "Marketing support & co-branding", en: "Marketing support & co-branding" },
@@ -618,7 +871,7 @@ function PricingSection({ lang }: { lang: Lang }) {
       <div className="container">
         <motion.div {...fadeUp()} className="text-center max-w-2xl mx-auto mb-16">
           <SectionLabel>
-            {t({ id: "Paket Kemitraan", en: "Partnership Packages" })}
+            {t({ id: "Paket Franchise", en: "Franchise Packages" })}
           </SectionLabel>
           <h2
             className="font-bold text-[#0D1B2A] leading-tight mb-4"
@@ -628,14 +881,14 @@ function PricingSection({ lang }: { lang: Lang }) {
             }}
           >
             {t({
-              id: "Pilih Paket yang Tepat",
-              en: "Choose the Right Package",
+              id: "Paket Digital Start Up — Calathea, Caladium, Monstera",
+              en: "Digital Startup Packages — Calathea, Caladium, Monstera",
             })}
           </h2>
           <p className="text-slate-500 leading-relaxed">
             {t({
-              id: "Tiga tingkatan investasi yang dirancang untuk berbagai skala bisnis dan target pasar. Harga bersifat indikatif — hubungi tim kami untuk penawaran final.",
-              en: "Three investment tiers designed for different business scales and target markets. Prices are indicative — contact our team for a final offer.",
+              id: "Semua paket menggunakan konfigurasi yang sama: 5 stack washer & dryer, instalasi utilitas lengkap, dan aplikasi digital — dibedakan oleh brand mesin, lokasi target, dan tingkat dukungan operasional. Harga indikatif; hubungi tim kami untuk penawaran final.",
+              en: "Every package uses the same core configuration: 5 stack washer & dryer units, full utility installation, and the digital app — tiers differ by machine brand, target location, and operational support level. Indicative pricing; contact us for a final offer.",
             })}
           </p>
         </motion.div>
@@ -663,7 +916,10 @@ function PricingSection({ lang }: { lang: Lang }) {
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#F5A623] mb-1">
-                      {pkg.plant}
+                      {t(pkg.plant)}
+                    </div>
+                    <div className="text-[9px] font-semibold tracking-[0.14em] uppercase text-slate-400 mb-2">
+                      {t(pkg.tierHint)}
                     </div>
                     <h3
                       className="font-bold text-[#0D1B2A]"
@@ -776,17 +1032,35 @@ function PricingSection({ lang }: { lang: Lang }) {
 // ─────────────────────────────────────────────────────────────
 // 6. TECHNICAL SPECIFICATIONS — per-package equipment breakdown
 // ─────────────────────────────────────────────────────────────
+const EQUIPMENT_INSTALLATION_ROWS: { label: Bilingual; qty: Bilingual }[] = [
+  {
+    label: { id: "Stack washer & dryer", en: "Stack washer & dryer" },
+    qty: { id: "5", en: "5" },
+  },
+  {
+    label: {
+      id: "Instalasi listrik, air, dan gas",
+      en: "Electrical, water & gas installation",
+    },
+    qty: { id: "5 unit", en: "5 units" },
+  },
+  {
+    label: { id: "Aplikasi laundry digital", en: "Digital laundry application" },
+    qty: { id: "1 unit", en: "1 unit" },
+  },
+];
+
+const UNIFIED_STACK_CONFIG: Bilingual = {
+  id: "Ketiga paket Digital Start Up (Calathea, Caladium, Monstera) memakai konfigurasi yang sama: 5 stack washer & dryer. Perbedaan utama ada pada brand mesin dan profil dukungan operasional.",
+  en: "All three Digital Startup packages (Calathea, Caladium, Monstera) share the same configuration: 5 stack washer & dryer units. The main differences are machine brand and operational support profile.",
+};
+
 const packageSpecs = [
   {
     name: "Calathea",
     tier: { id: "Entry", en: "Entry" },
     accentColor: "#4a7c59",
     equipment: ["LG Commercial Machines", "Speed Queen Machines"],
-    configTitle: { id: "Konfigurasi", en: "Configuration" },
-    config: {
-      id: "Setup laundry profesional — sistem washer & dryer terintegrasi",
-      en: "Professional laundry setup — integrated washer & dryer system",
-    },
     highlights: [
       {
         id: "Fokus efisiensi operasional tinggi",
@@ -811,15 +1085,10 @@ const packageSpecs = [
     tier: { id: "Standard", en: "Standard" },
     accentColor: "#F5A623",
     equipment: ["LG Commercial Machines", "Maytag Full Stack System"],
-    configTitle: { id: "Konfigurasi", en: "Configuration" },
-    config: {
-      id: "5 Stack Washer & Dryer — kapasitas volume tinggi",
-      en: "5-Stack Washer & Dryer — high-volume capacity",
-    },
     highlights: [
       {
-        id: "Throughput kapasitas tinggi per siklus",
-        en: "High-capacity throughput per cycle",
+        id: "Throughput tinggi dengan 5 stack",
+        en: "High throughput with 5-stack configuration",
       },
       {
         id: "Dioptimalkan untuk operasional volume besar",
@@ -840,11 +1109,6 @@ const packageSpecs = [
     tier: { id: "Premium", en: "Premium" },
     accentColor: "#1B3FA0",
     equipment: ["Huebsch Commercial Machines"],
-    configTitle: { id: "Konfigurasi", en: "Configuration" },
-    config: {
-      id: "Mesin industri kelas premium — kapasitas skala penuh",
-      en: "Premium industrial-grade machines — full-scale capacity",
-    },
     highlights: [
       {
         id: "Mesin industri premium — ketahanan tertinggi",
@@ -895,8 +1159,8 @@ function TechSpecs({ lang }: { lang: Lang }) {
           </h2>
           <p className="text-white/50 leading-relaxed">
             {t({
-              id: "Setiap paket kemitraan dilengkapi dengan brand mesin komersial pilihan yang disesuaikan dengan skala dan target operasional masing-masing.",
-              en: "Each partnership package comes equipped with carefully selected commercial machine brands, tailored to the scale and operational targets of each tier.",
+              id: "Semua paket Digital Start Up memakai 5 stack washer & dryer dengan instalasi utilitas dan aplikasi digital yang sama. Tabel berikut merinci kuantitas inti; brand mesin dibedakan per paket.",
+              en: "Every Digital Startup package uses 5 stack washer & dryer units with the same utility installation and digital app. The table below lists core quantities; machine brands differ by package.",
             })}
           </p>
         </motion.div>
@@ -913,6 +1177,11 @@ function TechSpecs({ lang }: { lang: Lang }) {
                 className="px-7 py-5 border-b border-white/10"
                 style={{ borderTopColor: pkg.accentColor, borderTopWidth: 2 }}
               >
+                <div
+                  className="text-[10px] font-bold tracking-[0.22em] uppercase mb-1 text-white/50"
+                >
+                  {t({ id: "Paket Digital Start Up", en: "Digital Startup Package" })}
+                </div>
                 <div
                   className="text-[10px] font-bold tracking-[0.22em] uppercase mb-1"
                   style={{ color: pkg.accentColor }}
@@ -931,10 +1200,30 @@ function TechSpecs({ lang }: { lang: Lang }) {
               </div>
 
               <div className="px-7 py-6 flex-1 space-y-6">
+                {/* Equipment & Installation (same for all packages) */}
+                <div>
+                  <div className="text-[9px] font-bold tracking-[0.25em] uppercase text-white/35 mb-3">
+                    {t({ id: "Peralatan & Instalasi", en: "Equipment & Installation" })}
+                  </div>
+                  <div className="border border-white/10 divide-y divide-white/10">
+                    {EQUIPMENT_INSTALLATION_ROWS.map((row) => (
+                      <div
+                        key={t(row.label)}
+                        className="flex items-center justify-between gap-4 px-3 py-2.5 text-sm"
+                      >
+                        <span className="text-white/65 leading-snug">{t(row.label)}</span>
+                        <span className="text-white font-semibold tabular-nums flex-shrink-0">
+                          {t(row.qty)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Equipment brands */}
                 <div>
                   <div className="text-[9px] font-bold tracking-[0.25em] uppercase text-white/35 mb-3">
-                    {t({ id: "Brand Peralatan", en: "Equipment Brands" })}
+                    {t({ id: "Brand / Jenis Mesin", en: "Machine Brand / Type" })}
                   </div>
                   <div className="space-y-2">
                     {pkg.equipment.map((brand) => (
@@ -954,17 +1243,12 @@ function TechSpecs({ lang }: { lang: Lang }) {
                   </div>
                 </div>
 
-                {/* Configuration */}
+                {/* Unified configuration note */}
                 <div>
                   <div className="text-[9px] font-bold tracking-[0.25em] uppercase text-white/35 mb-2">
-                    {t(pkg.configTitle)}
+                    {t({ id: "Konfigurasi", en: "Configuration" })}
                   </div>
-                  <p
-                    className="text-sm leading-relaxed font-medium"
-                    style={{ color: pkg.accentColor }}
-                  >
-                    {t(pkg.config)}
-                  </p>
+                  <p className="text-sm leading-relaxed text-white/55">{t(UNIFIED_STACK_CONFIG)}</p>
                 </div>
 
                 {/* Highlights */}
@@ -1020,8 +1304,8 @@ function TechSpecs({ lang }: { lang: Lang }) {
           </svg>
           <p className="text-white/40 text-sm leading-relaxed">
             {t({
-              id: "Spesifikasi mesin dapat disesuaikan berdasarkan ketersediaan dan kebutuhan lokasi. Tim teknis kami akan melakukan asesmen sebelum penentuan konfigurasi akhir.",
-              en: "Machine specifications may be adjusted based on availability and location requirements. Our technical team will conduct an assessment before finalising the configuration.",
+              id: "Konfigurasi 5 stack bersifat standar untuk ketiga paket. Model atau sub-tipe mesin dalam brand yang sama dapat disesuaikan setelah asesmen lokasi oleh tim teknis.",
+              en: "The 5-stack configuration is standard across all three packages. Specific models or sub-types within the same brand family may be adjusted after an on-site assessment by our technical team.",
             })}
           </p>
         </motion.div>
@@ -1044,10 +1328,13 @@ function ProductionEquipment({ lang }: { lang: Lang }) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h8M12 8v8" />
         </svg>
       ),
-      title: { id: "Mesin Cuci & Pengering Industri", en: "Industrial Washer & Dryer" },
+      title: {
+        id: "Stack washer & dryer + utilitas + aplikasi",
+        en: "Stack washer & dryer, utilities & app",
+      },
       desc: {
-        id: "Mesin komersial front-loading kapasitas tinggi. Konfigurasi disesuaikan per paket.",
-        en: "High-capacity front-loading commercial machines. Configuration tailored per package tier.",
+        id: "5 unit stack washer & dryer; instalasi listrik, air, dan gas (5 unit); 1 unit aplikasi laundry digital — standar yang sama untuk Calathea, Caladium, dan Monstera.",
+        en: "5 stack washer & dryer units; electrical, water & gas installation (5 units); 1 digital laundry application — the same baseline for Calathea, Caladium, and Monstera.",
       },
     },
     {
@@ -1057,38 +1344,35 @@ function ProductionEquipment({ lang }: { lang: Lang }) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M7 8V6a5 5 0 0110 0v2" />
         </svg>
       ),
-      title: { id: "Meja Sortir & Lipat", en: "Sorting & Folding Table" },
+      title: { id: "Meja sortir & lipat · Rak · Timbangan", en: "Sorting table · Racks · Scale" },
       desc: {
-        id: "Meja kerja stainless steel berukuran standar industri untuk proses sortir dan pelipatan pakaian secara efisien.",
-        en: "Industry-standard stainless steel work tables for efficient garment sorting and folding processes.",
+        id: "Meja sortir dan lipat, rak penyimpanan, dan timbangan laundry untuk alur produksi yang rapi dan akurat.",
+        en: "Sorting and folding tables, storage racks, and laundry scales for an organised, accurate production flow.",
       },
     },
     {
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-          <rect x="5" y="3" width="14" height="18" rx="1" />
-          <path strokeLinecap="round" strokeLinejoin="round" d="M5 9h14M5 15h14" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
         </svg>
       ),
-      title: { id: "Rak Penyimpanan", en: "Storage Rack" },
+      title: { id: "Perlengkapan produksi", en: "Production supplies" },
       desc: {
-        id: "Rak besi berlapis berlabel untuk penyimpanan pakaian siap ambil dan manajemen alur pesanan yang teratur.",
-        en: "Labelled multi-tier steel racks for organising ready-to-collect garments and maintaining orderly order flow.",
+        id: "Sabun, plastik, solasi, keranjang, hanger, chemical, dan parfum — sesuai daftar perlengkapan operasional paket.",
+        en: "Detergent, plastic, tape, baskets, hangers, chemicals, and fragrance — as per the package operational supply list.",
       },
     },
     {
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 6h18M3 12h18M3 18h18" />
-          <circle cx="6" cy="6" r="1" fill="currentColor" />
-          <circle cx="6" cy="12" r="1" fill="currentColor" />
-          <circle cx="6" cy="18" r="1" fill="currentColor" />
+          <rect x="4" y="4" width="16" height="16" rx="1" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8 8h8M8 12h5" />
         </svg>
       ),
-      title: { id: "Timbangan Laundry Digital", en: "Digital Laundry Scale" },
+      title: { id: "Branding promosi", en: "Promotional branding" },
       desc: {
-        id: "Timbangan digital presisi tinggi untuk penghitungan berat cucian secara akurat — menjamin transparansi harga kepada pelanggan.",
-        en: "High-precision digital scale for accurate laundry weight measurement — ensuring complete pricing transparency for customers.",
+        id: "Papan nama, neon box, dan papan promosi berdiri untuk visibilitas outlet yang profesional.",
+        en: "Signage, neon box, and standing promotional boards for professional outlet visibility.",
       },
     },
     {
@@ -1100,22 +1384,10 @@ function ProductionEquipment({ lang }: { lang: Lang }) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M14 15h4" />
         </svg>
       ),
-      title: { id: "Sistem Kasir / POS", en: "POS / Cashier System" },
+      title: { id: "Sistem kasir / POS", en: "Cashier / POS system" },
       desc: {
-        id: "Sistem point-of-sale digital terintegrasi dengan aplikasi Bandar Laundry: manajemen pesanan, pembayaran non-tunai, dan laporan otomatis.",
-        en: "Digital point-of-sale system integrated with the Bandar Laundry app: order management, cashless payments, and automated reporting.",
-      },
-    },
-    {
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-        </svg>
-      ),
-      title: { id: "Peralatan Operasional Harian", en: "Daily Operational Tools" },
-      desc: {
-        id: "Deterjen standar, produk perawatan kain, plastik pembungkus, hanger, tag label pesanan, dan semua perlengkapan operasional harian.",
-        en: "Standardised detergents, fabric care products, packaging materials, hangers, order tags, and all daily operational consumables.",
+        id: "Sistem kasir dan pencatatan transaksi terintegrasi dengan operasional harian outlet.",
+        en: "Cashier and transaction recording integrated with daily outlet operations.",
       },
     },
   ];
@@ -1141,8 +1413,8 @@ function ProductionEquipment({ lang }: { lang: Lang }) {
           </h2>
           <p className="text-slate-500 leading-relaxed">
             {t({
-              id: "Setiap unit kemitraan Bandar Laundry Express dilengkapi secara penuh dengan semua peralatan yang dibutuhkan untuk beroperasi secara profesional sejak hari pertama.",
-              en: "Every Bandar Laundry Express partnership unit is fully equipped with all the tools needed to operate professionally from day one.",
+              id: "Selaras dengan paket Digital Start Up: perlengkapan produksi, branding promosi, tata letak kerja, dan sistem kasir disiapkan agar outlet siap beroperasi sejak hari pertama.",
+              en: "Aligned with the Digital Startup packages: production supplies, promotional branding, workspace layout, and cashier systems are prepared so the outlet is ready to operate from day one.",
             })}
           </p>
         </motion.div>
@@ -1289,7 +1561,7 @@ function WhyInvest({ lang }: { lang: Lang }) {
           </h2>
           <p className="text-slate-500 leading-relaxed">
             {t({
-              id: "Enam argumen kuat yang menjelaskan mengapa kemitraan Bandar Laundry Express adalah keputusan investasi yang cerdas.",
+              id: "Enam argumen kuat yang menjelaskan mengapa waralaba Bandar Laundry Express adalah keputusan investasi yang cerdas.",
               en: "Six compelling arguments for why a Bandar Laundry Express partnership is a smart investment decision.",
             })}
           </p>
@@ -1393,7 +1665,7 @@ function CTASection({ lang }: { lang: Lang }) {
             <div className="flex items-center justify-center gap-3 mb-6">
               <span className="block w-10 h-px bg-[#F5A623]/60" />
               <span className="text-[#F5A623] text-[10px] font-bold tracking-[0.28em] uppercase">
-                {t({ id: "Mulai Kemitraan", en: "Start Your Partnership" })}
+                {t({ id: "Mulai Waralaba", en: "Start your franchise" })}
               </span>
               <span className="block w-10 h-px bg-[#F5A623]/60" />
             </div>
@@ -1452,7 +1724,7 @@ function CTASection({ lang }: { lang: Lang }) {
                   +62 812 9027 1990
                 </a>
                 <div className="text-white/35 text-xs mt-0.5">
-                  {t({ id: "Tim Kemitraan", en: "Partnership Team" })}
+                  {t({ id: "Tim franchise", en: "Franchise team" })}
                 </div>
               </div>
               <div>
@@ -1488,6 +1760,7 @@ export default function KemitraanClient() {
       <LangToggle lang={lang} setLang={setLang} />
       <HeroSection lang={lang} />
       <CompanyOverview lang={lang} />
+      <StoreGallerySection lang={lang} />
       <KeyMetrics lang={lang} />
       <BusinessModel lang={lang} />
       <PricingSection lang={lang} />
