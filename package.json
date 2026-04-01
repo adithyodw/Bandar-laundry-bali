@@ -3,6 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
+    "sync-store-photos": "node scripts/sync-store-photos.mjs",
+    "prebuild": "node scripts/sync-store-photos.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

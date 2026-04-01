@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { FRANCHISE_BG, WA_FRANCHISE_LINK } from "@/lib/data";
+import { STORE_GALLERY_ITEMS } from "@/lib/storeGalleryImages";
 
 // ─────────────────────────────────────────────────────────────
 // Types & helpers
@@ -299,19 +300,18 @@ function CompanyOverview({ lang }: { lang: Lang }) {
 // ─────────────────────────────────────────────────────────────
 function StoreGallery({ lang }: { lang: Lang }) {
   const t = useT(lang);
-  const stores = [
-    {
-      src: "/store-gallery/store-01.jpeg",
-      title: {
-        id: "Bandar Laundry Express Storefront",
-        en: "Bandar Laundry Express Storefront",
-      },
-      subtitle: {
-        id: "Outlet aktif dengan standar operasional premium",
-        en: "Active outlet with premium operating standards",
-      },
+  const sharedSubtitle = {
+    id: "Outlet aktif dengan standar operasional premium",
+    en: "Active outlet with premium operating standards",
+  };
+  const stores = STORE_GALLERY_ITEMS.map((item, i) => ({
+    src: item.src,
+    title: {
+      id: `Bandar Laundry Express — Outlet ${i + 1}`,
+      en: `Bandar Laundry Express — Outlet ${i + 1}`,
     },
-  ];
+    subtitle: sharedSubtitle,
+  }));
 
   return (
     <section className="py-20 md:py-28 bg-white">
@@ -340,14 +340,18 @@ function StoreGallery({ lang }: { lang: Lang }) {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
           {stores.map((store, idx) => (
             <motion.figure
               key={store.src}
               {...fadeUp(idx * 0.08)}
-              className="group relative overflow-hidden border border-slate-200 bg-[#FAF8F4]"
+              className={`group relative overflow-hidden border border-slate-200 bg-[#FAF8F4] ${
+                stores.length === 1 ? "md:col-span-2" : ""
+              }`}
             >
-              <div className="relative aspect-[16/9]">
+              <div
+                className={`relative ${stores.length === 1 ? "aspect-[21/9] max-h-[min(70vh,520px)]" : "aspect-[4/3]"}`}
+              >
                 <Image
                   src={store.src}
                   alt={t(store.title)}
