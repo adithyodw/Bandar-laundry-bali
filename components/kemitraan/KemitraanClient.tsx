@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { FRANCHISE_BG, WA_FRANCHISE_LINK } from "@/lib/data";
 import { ACTUAL_STORE_GALLERY } from "@/lib/store-gallery";
+import { appleEase } from "@/lib/motion-easing";
 
 // ─────────────────────────────────────────────────────────────
 // Types & helpers
@@ -301,14 +302,11 @@ function CompanyOverview({ lang }: { lang: Lang }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-// 2b. STORE GALLERY (actual locations)
+// 2b. STORE GALLERY (actual locations) — catalog-style grid + lightbox
 // ─────────────────────────────────────────────────────────────
-const galleryAspects = [
-  "aspect-[5/4]",
-  "aspect-[3/4]",
-  "aspect-square",
-  "aspect-[4/5]",
-];
+const catalogEase = appleEase;
+const catalogTransition = { duration: 0.62, ease: catalogEase } as const;
+const lightboxSwap = { duration: 0.56, ease: catalogEase } as const;
 
 function StoreGallerySection({ lang }: { lang: Lang }) {
   const t = useT(lang);
@@ -349,6 +347,7 @@ function StoreGallerySection({ lang }: { lang: Lang }) {
 
   const lightboxUi =
     mounted &&
+    lightbox !== null &&
     item &&
     createPortal(
       <div
@@ -359,27 +358,48 @@ function StoreGallerySection({ lang }: { lang: Lang }) {
       >
         <button
           type="button"
-          className="absolute inset-0 bg-[#0D1B2A]/95 backdrop-blur-sm cursor-default"
+          className="absolute inset-0 bg-black/78 backdrop-blur-xl cursor-default transition-opacity duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
           aria-label={lang === "id" ? "Tutup" : "Close"}
           onClick={() => setLightbox(null)}
         />
-        <div className="relative z-10 flex flex-1 items-center justify-center p-4 md:p-10 pointer-events-none">
-          <div className="relative w-full max-w-6xl max-h-[88vh] aspect-[4/3] pointer-events-auto">
-            <Image
-              src={item.src}
-              alt={t(item.caption)}
-              fill
-              className="object-contain"
-              sizes="(max-width: 1200px) 100vw, 1200px"
-              priority
-            />
+        <div className="relative z-10 flex flex-1 items-center justify-center p-4 md:p-12 pointer-events-none">
+          <div className="relative w-full max-w-[min(100%,72rem)] aspect-[4/3] max-h-[min(88vh,920px)] pointer-events-auto">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={lightbox}
+                initial={{ opacity: 0, scale: 0.988 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.988 }}
+                transition={lightboxSwap}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={ACTUAL_STORE_GALLERY[lightbox].src}
+                  alt={t(ACTUAL_STORE_GALLERY[lightbox].caption)}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 1200px) 100vw, 1152px"
+                  priority
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
-        <div className="relative z-10 flex items-center justify-between gap-4 px-4 md:px-10 pb-6 md:pb-10 pointer-events-none">
-          <p className="text-white/70 text-sm max-w-xl text-center md:text-left flex-1">
-            {t(item.caption)}
-          </p>
-          <div className="flex items-center gap-2 pointer-events-auto">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-5 px-5 md:px-12 pb-8 md:pb-12 pointer-events-none">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.p
+              key={lightbox}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.45, ease: catalogEase }}
+              className="text-white/72 text-sm max-w-lg leading-relaxed tracking-[-0.01em] text-center md:text-left flex-1"
+              style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}
+            >
+              {t(ACTUAL_STORE_GALLERY[lightbox].caption)}
+            </motion.p>
+          </AnimatePresence>
+          <div className="flex items-center justify-center gap-2 pointer-events-auto shrink-0">
             <button
               type="button"
               onClick={() =>
@@ -390,29 +410,31 @@ function StoreGallerySection({ lang }: { lang: Lang }) {
                       ACTUAL_STORE_GALLERY.length,
                 )
               }
-              className="w-11 h-11 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors flex items-center justify-center text-lg"
+              className="w-11 h-11 rounded-full bg-white/[0.09] border border-white/[0.12] text-white flex items-center justify-center transition-[background-color,border-color,transform] duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:bg-white/[0.15] hover:border-white/[0.18] active:scale-[0.97]"
               aria-label={lang === "id" ? "Sebelumnya" : "Previous"}
             >
-              ‹
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6" />
+              </svg>
             </button>
             <button
               type="button"
               onClick={() =>
                 setLightbox((i) =>
-                  i === null
-                    ? null
-                    : (i + 1) % ACTUAL_STORE_GALLERY.length,
+                  i === null ? null : (i + 1) % ACTUAL_STORE_GALLERY.length,
                 )
               }
-              className="w-11 h-11 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors flex items-center justify-center text-lg"
+              className="w-11 h-11 rounded-full bg-white/[0.09] border border-white/[0.12] text-white flex items-center justify-center transition-[background-color,border-color,transform] duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:bg-white/[0.15] hover:border-white/[0.18] active:scale-[0.97]"
               aria-label={lang === "id" ? "Berikutnya" : "Next"}
             >
-              ›
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M9 6l6 6-6 6" />
+              </svg>
             </button>
             <button
               type="button"
               onClick={() => setLightbox(null)}
-              className="ml-2 px-4 py-2 text-[10px] font-bold tracking-[0.2em] uppercase text-[#F5A623] border border-[#F5A623]/50 hover:bg-[#F5A623]/10 rounded-full transition-colors"
+              className="ml-1 px-5 py-2.5 text-[11px] font-medium tracking-[0.04em] text-white/90 border border-white/[0.18] rounded-full transition-[background-color,border-color] duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:bg-white/[0.08] hover:border-white/25"
             >
               {lang === "id" ? "Tutup" : "Close"}
             </button>
@@ -423,28 +445,35 @@ function StoreGallerySection({ lang }: { lang: Lang }) {
     );
 
   return (
-    <section className="py-20 md:py-28 bg-[#0D1B2A] relative overflow-hidden">
+    <section className="py-20 md:py-28 bg-[#0B0F14] relative overflow-hidden">
       <div
-        className="absolute inset-0 opacity-[0.05]"
+        className="absolute inset-0 opacity-[0.07]"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 20% 30%, rgba(245,166,35,0.4) 0%, transparent 45%), radial-gradient(circle at 80% 70%, rgba(27,63,160,0.5) 0%, transparent 40%)",
+            "radial-gradient(circle at 25% 20%, rgba(255,255,255,0.12) 0%, transparent 42%), radial-gradient(circle at 75% 80%, rgba(27,63,160,0.28) 0%, transparent 38%)",
         }}
         aria-hidden="true"
       />
 
-      <div className="relative container">
-        <motion.div {...fadeUp()} className="max-w-2xl mb-12 md:mb-16">
-          <SectionLabel>
-            <span className="text-[#F5A623]">
+      <div className="relative container max-w-[1200px]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={catalogTransition}
+          className="max-w-2xl mb-12 md:mb-16"
+        >
+          <div className="flex items-center gap-3 mb-3">
+            <span className="h-px w-8 bg-white/20" aria-hidden="true" />
+            <span className="text-[11px] font-medium tracking-[0.14em] uppercase text-white/45">
               {t({ id: "Jaringan Gerai", en: "Store network" })}
             </span>
-          </SectionLabel>
+          </div>
           <h2
-            className="font-bold text-white leading-tight mb-4"
+            className="font-semibold text-white leading-[1.15] mb-4 tracking-[-0.02em]"
             style={{
-              fontFamily: "var(--font-playfair), serif",
-              fontSize: "clamp(1.75rem, 4.5vw, 2.75rem)",
+              fontFamily: "var(--font-inter), system-ui, sans-serif",
+              fontSize: "clamp(1.65rem, 3.8vw, 2.35rem)",
             }}
           >
             {t({
@@ -452,47 +481,47 @@ function StoreGallerySection({ lang }: { lang: Lang }) {
               en: "Real locations. Proven operations.",
             })}
           </h2>
-          <p className="text-white/55 leading-relaxed text-sm md:text-base">
+          <p className="text-white/48 leading-relaxed text-[15px] max-w-xl tracking-[-0.01em]">
             {t({
-              id: "Potret fasilitas dan gerai kami di Bali — standar yang sama yang akan menjadi dasar investasi Anda.",
-              en: "A curated look at our Bali facilities — the same operational standard that underpins your investment.",
+              id: "Katalog fasilitas dan gerai kami di Bali — standar operasional yang konsisten di seluruh jaringan.",
+              en: "A precise catalog of our Bali facilities — operational standards that stay consistent across the network.",
             })}
           </p>
         </motion.div>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-5 [column-fill:_balance]">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3 md:gap-4">
           {ACTUAL_STORE_GALLERY.map((imageItem, i) => (
             <motion.div
               key={`${imageItem.src}-${i}`}
-              {...fadeUp(i * 0.06)}
-              className="break-inside-avoid mb-4 md:mb-5"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ ...catalogTransition, delay: i * 0.05 }}
             >
               <button
                 type="button"
                 onClick={() => setLightbox(i)}
-                className="group block w-full text-left rounded-sm overflow-hidden border border-white/10 bg-[#1B2838]/80 shadow-lg shadow-black/20 transition-all duration-500 hover:border-[#F5A623]/35 hover:shadow-[#F5A623]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5A623] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D1B2A]"
+                className="group block w-full text-left rounded-[1.05rem] overflow-hidden bg-[#121820] ring-1 ring-white/[0.07] shadow-[0_12px_40px_-18px_rgba(0,0,0,0.65)] transition-[transform,box-shadow,ring-color] duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:ring-white/[0.12] hover:shadow-[0_22px_50px_-14px_rgba(0,0,0,0.55)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0F14]"
               >
-                <div
-                  className={`relative w-full overflow-hidden ${galleryAspects[i % galleryAspects.length]}`}
-                >
+                <div className="relative aspect-[4/5] w-full overflow-hidden">
                   <Image
                     src={imageItem.src}
                     alt={t(imageItem.caption)}
                     fill
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-[620ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:scale-[1.02]"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 360px"
                   />
                   <div
-                    className="absolute inset-0 bg-gradient-to-t from-[#0D1B2A]/70 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500"
+                    className="absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none opacity-90 transition-opacity duration-500 group-hover:opacity-100"
                     aria-hidden="true"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-                    <span className="text-[9px] font-bold tracking-[0.22em] uppercase text-[#F5A623]/90">
-                      {t({ id: "Klik untuk perbesar", en: "Click to enlarge" })}
+                  <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4">
+                    <span className="text-[10px] font-medium tracking-[0.12em] uppercase text-white/50">
+                      {t({ id: "Lihat", en: "View" })}
                     </span>
                     <p
-                      className="mt-1 text-white text-sm font-medium leading-snug line-clamp-2"
-                      style={{ fontFamily: "var(--font-playfair), serif" }}
+                      className="mt-0.5 text-white text-[13px] font-medium leading-snug line-clamp-2 tracking-[-0.01em]"
+                      style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}
                     >
                       {t(imageItem.caption)}
                     </p>

@@ -1,8 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { HERO_BG } from "@/lib/data";
+import { ABOUT_DIGITAL_LAUNDRY_SLIDES } from "@/lib/about-digital";
+import { appleEase } from "@/lib/motion-easing";
+
+const slides = [...ABOUT_DIGITAL_LAUNDRY_SLIDES];
+const CAROUSEL_INTERVAL_MS = 7400;
+const crossfade = {
+  duration: 0.78,
+  ease: appleEase,
+};
 
 // Professional inline SVG icons — no emojis
 const IconClock = () => (
@@ -41,29 +50,87 @@ const pillars = [
 
 export default function AboutSection() {
   const prefersReduced = useReducedMotion();
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (prefersReduced || paused || slides.length < 2) return;
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % slides.length);
+    }, CAROUSEL_INTERVAL_MS);
+    return () => window.clearInterval(id);
+  }, [prefersReduced, paused]);
 
   return (
     <section id="about" className="py-16 md:py-24 bg-[#FAF8F4] overflow-hidden">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
-          {/* Image — fade+y only (no x to avoid horizontal overflow on mobile) */}
+          {/* Image catalog — Apple-style crossfade, minimal chrome */}
           <motion.div
-            initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
+            initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7 }}
-            className="relative aspect-[4/5] max-w-sm mx-auto lg:mx-0 w-full"
+            transition={{ duration: 0.75, ease: appleEase }}
+            className="relative max-w-sm mx-auto lg:mx-0 w-full"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
           >
-            <div className="absolute inset-0 border-2 border-[#F5A623] translate-x-3 translate-y-3 -z-10" aria-hidden="true" />
-            <Image
-              src={HERO_BG}
-              alt="Bandar Laundry Express — Bali's premium laundry service"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 90vw, 45vw"
-              loading="lazy"
-            />
+            <div
+              className="relative aspect-[4/5] rounded-[1.35rem] overflow-hidden bg-neutral-200/80 shadow-[0_16px_48px_-12px_rgba(13,27,42,0.18)] ring-1 ring-black/[0.05]"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="Bandar Laundry Express locations"
+            >
+              {slides.map((slide, i) => (
+                <motion.div
+                  key={slide.src}
+                  initial={false}
+                  animate={{
+                    opacity: prefersReduced ? (i === 0 ? 1 : 0) : i === index ? 1 : 0,
+                  }}
+                  transition={crossfade}
+                  className="absolute inset-0"
+                  style={{ zIndex: i === index ? 2 : 1 }}
+                  aria-hidden={i === index ? undefined : true}
+                >
+                  <Image
+                    src={slide.src}
+                    alt={`Bandar Laundry Express — Bali digital laundry ${i + 1} of ${slides.length}`}
+                    fill
+                    className="object-cover scale-[1.01]"
+                    sizes="(max-width: 1024px) 90vw, 420px"
+                    priority={i === 0}
+                    loading={i === 0 ? "eager" : "lazy"}
+                  />
+                </motion.div>
+              ))}
+            </div>
+
+            {slides.length > 1 && !prefersReduced && (
+              <div
+                className="mt-5 flex items-center justify-center gap-2"
+                role="tablist"
+                aria-label="Slide indicators"
+              >
+                {slides.map((slide, i) => (
+                  <button
+                    key={slide.src}
+                    type="button"
+                    role="tab"
+                    aria-selected={i === index}
+                    aria-label={`Slide ${i + 1}`}
+                    onClick={() => setIndex(i)}
+                    className="h-1.5 rounded-full transition-[width,background-color,opacity] duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1B3FA0] focus-visible:ring-offset-2"
+                    style={{
+                      width: i === index ? 22 : 6,
+                      backgroundColor:
+                        i === index ? "rgba(27, 63, 160, 0.9)" : "rgba(13, 27, 42, 0.18)",
+                    }}
+                  />
+                ))}
+              </div>
+            )}
           </motion.div>
 
           <div>
@@ -71,7 +138,7 @@ export default function AboutSection() {
               initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.65 }}
+              transition={{ duration: 0.72, ease: appleEase, delay: 0.04 }}
             >
               <span className="section-label">Our Story</span>
               <h2
@@ -103,13 +170,13 @@ export default function AboutSection() {
               {pillars.map(({ Icon, title, desc }, i) => (
                 <motion.div
                   key={title}
-                  initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
+                  initial={prefersReduced ? {} : { opacity: 0, y: 14 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.45, delay: i * 0.08 }}
-                  className="flex items-start gap-3 p-4 bg-white border border-slate-100 rounded-sm"
+                  transition={{ duration: 0.52, ease: appleEase, delay: i * 0.06 }}
+                  className="flex items-start gap-3 p-4 bg-white border border-slate-100 rounded-xl"
                 >
-                  <div className="flex-shrink-0 w-9 h-9 rounded-sm bg-[#1B3FA0]/6 flex items-center justify-center text-[#1B3FA0]">
+                  <div className="flex-shrink-0 w-9 h-9 rounded-md bg-[#1B3FA0]/6 flex items-center justify-center text-[#1B3FA0]">
                     <Icon />
                   </div>
                   <div>

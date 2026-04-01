@@ -15,7 +15,8 @@ const CDN_SHOWCASE: StoreGalleryImage[] = [
   },
 ];
 
-export const ACTUAL_STORE_GALLERY: StoreGalleryImage[] = [
-  ...CDN_SHOWCASE,
-  ...SYNCED_STORE_IMAGES,
-];
+/** All synced location photos; CDN hero only when no local assets yet. */
+export const ACTUAL_STORE_GALLERY: StoreGalleryImage[] =
+  SYNCED_STORE_IMAGES.length > 0
+    ? [...SYNCED_STORE_IMAGES]
+    : [...CDN_SHOWCASE];
