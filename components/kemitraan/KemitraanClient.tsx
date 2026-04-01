@@ -743,7 +743,9 @@ function PricingSection({ lang }: { lang: Lang }) {
 
               <div className="px-6 md:px-8 pb-6 md:pb-8">
                 <a
-                  href={`${WA_FRANCHISE_LINK}&text=Hi%2C%20I'm%20interested%20in%20the%20${pkg.name}%20partnership%20package.`}
+                  href={`https://wa.me/6281290271990?text=${encodeURIComponent(
+                    `Hi, I'm interested in the ${pkg.name} partnership package.`
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`w-full flex items-center justify-center py-3 px-6 text-sm font-semibold tracking-wide transition-all duration-200 ${
