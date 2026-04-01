@@ -1,11 +1,39 @@
-export const LOGO_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663482333703/KB4KAXETgqhUXRp3CHL52M/bandar-logo_110b4814.png";
+export const LOGO_URL = "/logo-hd.png";
 
 export const HERO_BG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663482333703/KB4KAXETgqhUXRp3CHL52M/bandar-store_4ab567f3.jpeg";
 
 export const FRANCHISE_BG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663482333703/KB4KAXETgqhUXRp3CHL52M/bandar-franchise-bg-ZJsEoXt3jr4AZGoRweuEhB.webp";
+
+/** Official CDN folder — same assets used across the brand site. */
+const CDN_ASSET =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663482333703/KB4KAXETgqhUXRp3CHL52M";
+
+const BRAND_CAP = {
+  id: "Bandar Laundry Express",
+  en: "Bandar Laundry Express",
+} as const;
+
+/**
+ * Distinct showcase frames for Franchise + About when `Photos of actual stores/`
+ * has not been synced yet. Replaced entirely by synced local photos once present.
+ */
+export const STORE_SHOWCASE_GALLERY = [
+  { src: `${CDN_ASSET}/bandar-store_4ab567f3.jpeg`, caption: BRAND_CAP },
+  { src: `${CDN_ASSET}/bandar-about-img-4vFHLe9vbvRbEbaKU34zBB.webp`, caption: BRAND_CAP },
+  { src: `${CDN_ASSET}/bandar-gallery-machines-GjxuSiEEZH3rcCbAEinE2T.webp`, caption: BRAND_CAP },
+  { src: `${CDN_ASSET}/bandar-gallery-process-ek5PpppnEkTKfYsXfds2kA.webp`, caption: BRAND_CAP },
+  { src: `${CDN_ASSET}/bandar-hero-bg-KwCFy4qmDuMRyRFtgQMXbw.webp`, caption: BRAND_CAP },
+] as const;
+
+/** Four slides for the About carousel when local 10/15/17/18 are not all synced. */
+export const SHOWCASE_ABOUT_SLIDES = [
+  { src: `${CDN_ASSET}/bandar-store_4ab567f3.jpeg` },
+  { src: `${CDN_ASSET}/bandar-about-img-4vFHLe9vbvRbEbaKU34zBB.webp` },
+  { src: `${CDN_ASSET}/bandar-gallery-machines-GjxuSiEEZH3rcCbAEinE2T.webp` },
+  { src: `${CDN_ASSET}/bandar-gallery-process-ek5PpppnEkTKfYsXfds2kA.webp` },
+] as const;
 
 export const WA_LINK =
   "https://wa.me/62817334128?text=Halo%20Bandar%20Laundry%20Express%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20laundry%20Anda.";
