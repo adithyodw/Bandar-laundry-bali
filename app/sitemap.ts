@@ -1,34 +1,15 @@
 import type { MetadataRoute } from "next";
+import {
+  blogPageSlugs,
+  locationPageSlugs,
+  servicePageSlugs,
+} from "@/lib/seo-routes";
 import { SITE_URL } from "@/lib/site";
 
 const BASE_URL = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-
-  const locationPages = [
-    "laundry-kuta",
-    "laundry-seminyak",
-    "laundry-canggu",
-    "laundry-ubud",
-    "laundry-denpasar",
-    "laundry-jimbaran",
-    "laundry-sanur",
-    "laundry-nusa-dua",
-  ];
-
-  const servicePages = [
-    "express-laundry-bali",
-    "regular-laundry-bali",
-    "ironing-service-bali",
-    "commercial-laundry-bali",
-  ];
-
-  const blogPages = [
-    "best-laundry-canggu",
-    "laundry-price-bali",
-    "laundry-near-me-bali",
-  ];
 
   return [
     {
@@ -55,19 +36,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    ...locationPages.map((slug) => ({
+    ...locationPageSlugs.map((slug) => ({
       url: `${BASE_URL}/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.9,
     })),
-    ...servicePages.map((slug) => ({
+    ...servicePageSlugs.map((slug) => ({
       url: `${BASE_URL}/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
-    ...blogPages.map((slug) => ({
+    ...blogPageSlugs.map((slug) => ({
       url: `${BASE_URL}/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
