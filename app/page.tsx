@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { SITE_URL } from "@/lib/site";
 import HeroSection from "@/components/sections/HeroSection";
 import TrustBar from "@/components/sections/TrustBar";
 import AboutSection from "@/components/sections/AboutSection";
 
-// Below-fold sections loaded lazily to reduce initial JS bundle
+// SSR: keep content in HTML for SEO — code-split JS chunks load on demand
 const ServicesSection = dynamic(
   () => import("@/components/sections/ServicesSection"),
   { ssr: true }
@@ -22,12 +23,19 @@ const TestimonialsSection = dynamic(
   () => import("@/components/sections/TestimonialsSection"),
   { ssr: true }
 );
+
+// Deep below-fold: skip SSR to avoid hydrating heavy JS at page load.
+// Content is not critical for SEO (app promo + Instagram feed).
+// ssr:false means these sections are NOT included in the initial HTML
+// and their JS chunks are NOT executed during first hydration pass —
+// reducing the number of Framer Motion observers registered at startup.
 const AppDownloadSection = dynamic(
   () => import("@/components/sections/AppDownloadSection"),
-  { ssr: true }
+  { ssr: false }
 );
 const InstagramSection = dynamic(
-  () => import("@/components/sections/InstagramSection")
+  () => import("@/components/sections/InstagramSection"),
+  { ssr: false }
 );
 
 export const metadata: Metadata = {
@@ -69,8 +77,13 @@ export default function HomePage() {
       <BranchesSection />
       <FranchiseSection />
       <TestimonialsSection />
-      <AppDownloadSection />
-      <InstagramSection />
+      {/* Deep below-fold sections: client-only, hydrate after above-fold settles */}
+      <Suspense fallback={null}>
+        <AppDownloadSection />
+      </Suspense>
+      <Suspense fallback={null}>
+        <InstagramSection />
+      </Suspense>
     </>
   );
 }

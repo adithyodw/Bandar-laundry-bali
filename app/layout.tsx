@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import DeferredVercelMetrics from "@/components/DeferredVercelMetrics";
+import MotionProvider from "@/components/MotionProvider";
 import { testimonials } from "@/lib/data";
 import { buildSiteJsonLdGraph } from "@/lib/jsonld";
 import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/site";
@@ -112,6 +113,19 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
+        {/*
+         * Early iOS detection — runs BEFORE React hydrates.
+         * Sets window.__IOS_WEBKIT__ = true on any iPhone/iPad/iPod device
+         * or iPadOS in desktop mode (maxTouchPoints > 1 on MacIntel).
+         * MotionProvider reads this synchronously in its useState initializer
+         * so Framer Motion receives reducedMotion:"always" on the very first
+         * render — preventing GPU compositor layer allocation that crashes iOS.
+         */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if(/iP(ad|hone|od)/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1))window.__IOS_WEBKIT__=true;}catch(e){}})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -120,10 +134,12 @@ export default function RootLayout({
         />
       </head>
       <body className="overflow-x-hidden">
-        <Navbar />
-        <main id="main-content">{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        <MotionProvider>
+          <Navbar />
+          <main id="main-content">{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+        </MotionProvider>
         <DeferredVercelMetrics />
       </body>
     </html>

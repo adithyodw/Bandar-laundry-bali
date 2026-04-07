@@ -92,15 +92,40 @@
   }
 
   /*
-   * iOS WebKit: fixed header + backdrop-filter + heavy compositing is a frequent
-   * source of renderer process crashes ("Can't open this page" in Chrome iOS).
+   * iOS WebKit compositor layer budget fix.
+   *
+   * Root cause of "Can't open this page" crash on iPhone:
+   *   Framer Motion sets `will-change: transform, opacity` on ~50 animated
+   *   elements across all sections.  Each will-change promotes an element to
+   *   a GPU compositor layer (~2-5 MB each).  50 layers easily exhausts the
+   *   iOS WebKit per-tab memory budget, killing the renderer process.
+   *
+   * CSS safety net (MotionProvider handles the JS side via reducedMotion:"always"):
+   *   1. Force will-change:auto so no stray compositor layers are created.
+   *   2. content-visibility:auto tells WebKit to skip paint/composite for
+   *      off-screen sections, dramatically reducing GPU memory usage.
    */
   @supports (-webkit-touch-callout: none) {
+    /* Prevent ALL compositor layer promotion on iOS */
+    * {
+      will-change: auto !important;
+    }
+
+    /* Skip rendering below-fold sections until near viewport */
+    section:not(#hero) {
+      content-visibility: auto;
+      /* Reserve approximate height so layout doesn't shift when rendered */
+      contain-intrinsic-size: 0 500px;
+    }
+
+    /* Navbar is fixed — it must always be composited/rendered */
     .site-header {
+      content-visibility: visible;
       -webkit-backdrop-filter: none !important;
       backdrop-filter: none !important;
     }
 
+    /* Hide bounce animation — it runs even on display:none elements in some WebKit builds */
     .hero-scroll-hint {
       display: none !important;
     }
