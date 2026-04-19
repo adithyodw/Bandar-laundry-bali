@@ -129,6 +129,22 @@
     .hero-scroll-hint {
       display: none !important;
     }
+
+    /* Skeleton shimmer wastes paint cycles — replace with a flat colour */
+    .skeleton {
+      animation: none !important;
+      background: #e8e8e8 !important;
+    }
+
+    /* blur-3xl / filter:blur() creates a compositor layer even when
+       will-change:auto is forced. Remove all CSS filter effects on iOS. */
+    .blur-3xl,
+    .blur-2xl,
+    .blur-xl,
+    [class*="blur-"] {
+      filter: none !important;
+      -webkit-filter: none !important;
+    }
   }
 }
 

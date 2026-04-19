@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -105,27 +106,24 @@ export const metadata: Metadata = {
 
 const siteGraphLd = buildSiteJsonLdGraph(testimonials);
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Detect iOS server-side so SSR and client hydration agree on reducedMotion.
+  // Previously, MotionProvider used a useState initializer that read
+  // window.__IOS_WEBKIT__ on the client — but the server always returned
+  // reducedMotion="user", causing a DOM hydration mismatch (SSR HTML had
+  // opacity:0/translateY on motion elements; client iOS wanted no styles).
+  // React's recovery re-render burst ~50 Framer Motion GPU compositor layers,
+  // exhausting iOS WebKit's per-tab memory limit → "Can't open this page".
+  const ua = (await headers()).get("user-agent") ?? "";
+  const isIos = /iP(ad|hone|od)/i.test(ua);
+
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
-        {/*
-         * Early iOS detection — runs BEFORE React hydrates.
-         * Sets window.__IOS_WEBKIT__ = true on any iPhone/iPad/iPod device
-         * or iPadOS in desktop mode (maxTouchPoints > 1 on MacIntel).
-         * MotionProvider reads this synchronously in its useState initializer
-         * so Framer Motion receives reducedMotion:"always" on the very first
-         * render — preventing GPU compositor layer allocation that crashes iOS.
-         */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{if(/iP(ad|hone|od)/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1))window.__IOS_WEBKIT__=true;}catch(e){}})();`,
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -134,7 +132,7 @@ export default function RootLayout({
         />
       </head>
       <body className="overflow-x-hidden">
-        <MotionProvider>
+        <MotionProvider reducedMotion={isIos ? "always" : "user"}>
           <Navbar />
           <main id="main-content">{children}</main>
           <Footer />
