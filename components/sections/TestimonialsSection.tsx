@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import * as SM from "@/components/SafeMotion";
 import { testimonials } from "@/lib/data";
 
 function StarRating({ count }: { count: number }) {
@@ -21,7 +22,7 @@ export default function TestimonialsSection() {
   return (
     <section id="testimonials" className="py-16 md:py-24 bg-[#FAF8F4]">
       <div className="container">
-        <motion.div
+        <SM.Div
           initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -40,11 +41,11 @@ export default function TestimonialsSection() {
             <br />
             <span className="italic">Are Saying</span>
           </h2>
-        </motion.div>
+        </SM.Div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {testimonials.map((t, i) => (
-            <motion.article
+            <SM.Article
               key={t.name}
               initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -61,11 +62,11 @@ export default function TestimonialsSection() {
                 <div className="font-semibold text-[#0D1B2A] text-sm">{t.name}</div>
                 <div className="text-xs text-slate-400 mt-0.5">{t.role}</div>
               </div>
-            </motion.article>
+            </SM.Article>
           ))}
         </div>
 
-        <motion.div
+        <SM.Div
           initial={prefersReduced ? {} : { opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -82,7 +83,7 @@ export default function TestimonialsSection() {
           <span className="text-slate-600 text-sm">
             <strong className="text-[#0D1B2A]">4.9 / 5</strong> based on 200+ Google Reviews
           </span>
-        </motion.div>
+        </SM.Div>
       </div>
     </section>
   );

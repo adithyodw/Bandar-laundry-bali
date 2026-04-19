@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import * as SM from "@/components/SafeMotion";
 import Image from "next/image";
 import { ABOUT_DIGITAL_LAUNDRY_SLIDES } from "@/lib/about-digital";
 import { appleEase } from "@/lib/motion-easing";
@@ -83,7 +84,7 @@ export default function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
           {/* Apple-style image carousel */}
-          <motion.div
+          <SM.Div
             initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -197,11 +198,11 @@ export default function AboutSection() {
                 ))}
               </div>
             )}
-          </motion.div>
+          </SM.Div>
 
           {/* Text */}
           <div>
-            <motion.div
+            <SM.Div
               initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -228,11 +229,11 @@ export default function AboutSection() {
                 track, and pay entirely through WhatsApp — no apps to download, no
                 complicated systems.
               </p>
-            </motion.div>
+            </SM.Div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {pillars.map(({ Icon, title, desc }, i) => (
-                <motion.div
+                <SM.Div
                   key={title}
                   initial={prefersReduced ? {} : { opacity: 0, y: 14 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -247,7 +248,7 @@ export default function AboutSection() {
                     <div className="font-semibold text-[#0D1B2A] text-sm mb-1">{title}</div>
                     <div className="text-xs text-slate-500 leading-relaxed">{desc}</div>
                   </div>
-                </motion.div>
+                </SM.Div>
               ))}
             </div>
           </div>

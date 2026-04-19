@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import * as SM from "@/components/SafeMotion";
 import Link from "next/link";
 import { branches } from "@/lib/data";
 
@@ -10,7 +11,7 @@ export default function BranchesSection() {
   return (
     <section id="branches" className="py-16 md:py-24 bg-[#FAF8F4]">
       <div className="container">
-        <motion.div
+        <SM.Div
           initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -40,11 +41,11 @@ export default function BranchesSection() {
             </span>{" "}
             branches across Denpasar and Badung, open daily 07:00 – 22:00.
           </div>
-        </motion.div>
+        </SM.Div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {branches.map((branch, i) => (
-            <motion.div
+            <SM.Div
               key={branch.name}
               initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -115,11 +116,11 @@ export default function BranchesSection() {
                 </svg>
                 Open in Google Maps
               </a>
-            </motion.div>
+            </SM.Div>
           ))}
         </div>
 
-        <motion.div
+        <SM.Div
           initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -137,7 +138,7 @@ export default function BranchesSection() {
           >
             Inquire About Pickup
           </Link>
-        </motion.div>
+        </SM.Div>
       </div>
     </section>
   );

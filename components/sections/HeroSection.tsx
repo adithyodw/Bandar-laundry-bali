@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import * as SM from "@/components/SafeMotion";
 import { HERO_BG, WA_LINK } from "@/lib/data";
 
 const WA_ICON = (
@@ -45,15 +46,15 @@ export default function HeroSection() {
       <div className="relative container pt-28 pb-14 sm:pt-32 md:pt-36 md:pb-24">
         <div className="max-w-2xl">
           {/* Label */}
-          <motion.div {...fadeUp(0.1)} className="flex items-center gap-3 mb-5">
+          <SM.Div {...fadeUp(0.1)} className="flex items-center gap-3 mb-5">
             <span className="block w-8 h-px bg-[#F5A623]" aria-hidden="true" />
             <span className="text-[#F5A623] text-xs font-semibold tracking-[0.2em] uppercase">
               Bali&apos;s First Digital Laundry
             </span>
-          </motion.div>
+          </SM.Div>
 
           {/* H1 — clamp for smooth scaling across all screen sizes */}
-          <motion.h1
+          <SM.H1
             {...fadeUp(0.2)}
             className="font-bold text-white leading-[1.1] mb-5"
             style={{
@@ -64,19 +65,19 @@ export default function HeroSection() {
             Premium Laundry
             <br />
             <span className="italic text-[#F5A623]">Service in Bali</span>
-          </motion.h1>
+          </SM.H1>
 
           {/* Subtext */}
-          <motion.p
+          <SM.P
             {...fadeUp(0.35)}
             className="text-base sm:text-lg md:text-xl text-white/80 font-light leading-relaxed mb-8 max-w-md"
           >
             Fast, Clean, Reliable — Your Trusted Laundry Partner.
             Done in 90 minutes across 9 branches in Bali.
-          </motion.p>
+          </SM.P>
 
           {/* CTA buttons */}
-          <motion.div
+          <SM.Div
             {...fadeUp(0.45)}
             className="flex flex-col xs:flex-row gap-3 sm:gap-4"
           >
@@ -95,10 +96,10 @@ export default function HeroSection() {
             >
               Find Nearest Branch
             </Link>
-          </motion.div>
+          </SM.Div>
 
           {/* Stats — responsive flex-wrap to avoid overflow on 320px */}
-          <motion.div
+          <SM.Div
             {...fadeUp(0.55)}
             className="mt-10 flex flex-wrap gap-x-8 gap-y-4 border-t border-white/20 pt-7"
           >
@@ -119,7 +120,7 @@ export default function HeroSection() {
                 </div>
               </div>
             ))}
-          </motion.div>
+          </SM.Div>
         </div>
       </div>
 

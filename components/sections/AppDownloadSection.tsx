@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import * as SM from "@/components/SafeMotion";
 import { APP_PLAY_URL } from "@/lib/data";
 
 const appFeatures = [
@@ -158,7 +159,7 @@ export default function AppDownloadSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* Text side */}
-          <motion.div
+          <SM.Div
             initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -192,7 +193,7 @@ export default function AppDownloadSection() {
             {/* Feature grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
               {appFeatures.map((f, i) => (
-                <motion.div
+                <SM.Div
                   key={f.title}
                   initial={prefersReduced ? {} : { opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -207,7 +208,7 @@ export default function AppDownloadSection() {
                     <div className="text-sm font-semibold text-white mb-0.5">{f.title}</div>
                     <div className="text-xs text-white/50 leading-relaxed">{f.desc}</div>
                   </div>
-                </motion.div>
+                </SM.Div>
               ))}
             </div>
 
@@ -219,10 +220,10 @@ export default function AppDownloadSection() {
                 Available on Android
               </div>
             </div>
-          </motion.div>
+          </SM.Div>
 
           {/* Phone mockup side */}
-          <motion.div
+          <SM.Div
             initial={prefersReduced ? {} : { opacity: 0, scale: 0.92 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -233,7 +234,7 @@ export default function AppDownloadSection() {
             {/* Glow behind phone */}
             <div className="absolute w-64 h-64 rounded-full bg-[#1B3FA0]/25 blur-3xl pointer-events-none" />
             <PhoneMockup />
-          </motion.div>
+          </SM.Div>
 
         </div>
       </div>

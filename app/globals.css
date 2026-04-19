@@ -120,8 +120,7 @@
   }
 
   html[data-ios] section:not(#hero) {
-    content-visibility: auto;
-    contain-intrinsic-size: 0 500px;
+    content-visibility: visible;
   }
 
   html[data-ios] .site-header {

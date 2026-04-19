@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import * as SM from "@/components/SafeMotion";
 import Link from "next/link";
 import { services } from "@/lib/data";
 
@@ -40,7 +41,7 @@ export default function ServicesSection() {
   return (
     <section id="services" className="py-16 md:py-24 bg-white">
       <div className="container">
-        <motion.div
+        <SM.Div
           initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -59,12 +60,12 @@ export default function ServicesSection() {
             <br />
             <span className="italic">Wardrobe Needs</span>
           </h2>
-        </motion.div>
+        </SM.Div>
 
         {/* 1 col → 2 col at sm → 4 col at xl (avoids cramped 4-col on tablets) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
           {services.map((service, i) => (
-            <motion.div
+            <SM.Div
               key={service.slug}
               initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -119,7 +120,7 @@ export default function ServicesSection() {
                   </span>
                 </div>
               </Link>
-            </motion.div>
+            </SM.Div>
           ))}
         </div>
       </div>

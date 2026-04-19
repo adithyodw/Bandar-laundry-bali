@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import * as SM from "@/components/SafeMotion";
 import Image from "next/image";
 import Link from "next/link";
 import { FRANCHISE_BG, WA_FRANCHISE_LINK } from "@/lib/data";
@@ -41,7 +42,7 @@ export default function FranchiseSection() {
 
       <div className="relative container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
-          <motion.div
+          <SM.Div
             initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -116,9 +117,9 @@ export default function FranchiseSection() {
                 </a>
               </div>
             </div>
-          </motion.div>
+          </SM.Div>
 
-          <motion.div
+          <SM.Div
             initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -144,7 +145,7 @@ export default function FranchiseSection() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </SM.Div>
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import * as SM from "@/components/SafeMotion";
 
 const stats = [
   { value: "9+", label: "Branches in Bali" },
@@ -17,7 +18,7 @@ export default function TrustBar() {
       <div className="container">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
           {stats.map((stat, i) => (
-            <motion.div
+            <SM.Div
               key={stat.label}
               initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -34,7 +35,7 @@ export default function TrustBar() {
               <div className="text-xs text-white/70 tracking-wide mt-1 uppercase">
                 {stat.label}
               </div>
-            </motion.div>
+            </SM.Div>
           ))}
         </div>
       </div>
